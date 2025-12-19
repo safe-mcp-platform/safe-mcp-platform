@@ -1,0 +1,85 @@
+{
+  "id": "SAFE-T1304",
+  "name": "SAFE-T1304: Credential Relay Chain",
+  "tactic": "Privilege Escalation",
+  "description": "Credential Relay Chain is a privilege escalation technique where adversaries use one MCP tool to steal authentication tokens or credentials, then feed those stolen credentials to a second tool that operates with higher privileges. This technique exploits the trust relationships between different MCP tools and their associated services to escalate from limited access to elevated permissions.\n\nThe attack leverages the fact that MCP tools often share authentication contexts or can be chained together to perform operations that individually would be restricted. By stealing credentials from a lower-privilege tool and relaying them to a higher-privilege tool, attackers can bypass intended access controls and gain unauthorized elevated access.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-1",
+    "SAFE-M-10",
+    "SAFE-M-11",
+    "SAFE-M-2",
+    "SAFE-M-6",
+    "SAFE-M-12"
+  ],
+  "mitre_mappings": [
+    "T1550.002",
+    "T1706",
+    "T1301",
+    "T1550",
+    "T1504",
+    "T1304"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "tool_chain",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "step_1",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "tool",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "github_reader",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "privilege_level",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1304-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

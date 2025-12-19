@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../openguardrails"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../safe-mcp"
+		},
+		{
+			"path": "../mcp-vulnerability-demo"
+		}
+	],
+	"settings": {}
+}

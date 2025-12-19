@@ -1,0 +1,85 @@
+{
+  "id": "SAFE-T1110",
+  "name": "SAFE-T1110: Multimodal Prompt Injection via Images/Audio",
+  "tactic": "Execution",
+  "description": "Multimodal Prompt Injection via Images/Audio is an advanced execution technique that exploits multimodal AI systems by embedding malicious instructions within image or audio content. This attack leverages the multimodal capabilities of modern AI systems, particularly those implementing the Model Context Protocol (MCP) with image and audio processing capabilities, to manipulate AI behavior through visual or auditory vectors.\n\nThe technique exploits the inherent trust that multimodal AI systems place in non-textual content, using methods such as steganography, Optical Character Recognition (OCR) exploitation, adversarial perturbations, and embedding manipulation to hide malicious instructions. Unlike traditional text-based prompt injection, this technique bypasses many text-focused security filters and can operate through seemingly benign multimedia content.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-50",
+    "SAFE-M-49",
+    "SAFE-M-52",
+    "SAFE-M-51",
+    "SAFE-M-54",
+    "SAFE-M-53"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1110",
+    "T1201",
+    "T1059",
+    "T1001",
+    "T1027"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "jsonrpc",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "2.0",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "method",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "prompts/get",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "params",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1110-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

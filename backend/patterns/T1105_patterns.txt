@@ -1,0 +1,126 @@
+# SAFE-T1105: Path Traversal Detection Patterns
+# These regex patterns detect attempts to access files outside sandbox
+# Covers Unix, Windows, URL encoding, and obfuscation techniques
+
+# ===== BASIC UNIX TRAVERSAL =====
+\.\./
+\.\./\.\./
+\.\./\.\./\.\./
+(\.\./){2,}
+
+# ===== BASIC WINDOWS TRAVERSAL =====
+\.\.\\
+\.\.\\\.\.\\
+\.\.\\\.\.\\\.\.\\
+(\.\.\\){2,}
+
+# ===== ALTERNATIVE UNIX TRAVERSAL =====
+\.\.//
+\.\.///
+\.\./\./
+\.\.;\./
+\.\./\.\.\./
+
+# ===== ALTERNATIVE WINDOWS TRAVERSAL =====
+\.\.\\\\
+\.\.\\\\\\
+\.\.\\\.\\
+\.\.;\.\\
+
+# ===== URL ENCODED (Single) =====
+%2e%2e%2f
+%2e%2e/
+%2e%2e\\
+%2e%2e%5c
+
+# ===== URL ENCODED (Double) =====
+%252e%252e%252f
+%252e%252e/
+%252e%252e\\
+%252e%252e%255c
+
+# ===== UNICODE ENCODED =====
+\u002e\u002e/
+\u002e\u002e\\
+․․/
+․․\\
+\.\u002e/
+\u002e\./
+
+# ===== NULL BYTE INJECTION =====
+%00
+\x00
+\\0
+\.\./%00
+
+# ===== UNC PATHS (Windows) =====
+^\\\\
+^\\\\\?\\
+^\\\\\.\\
+
+# ===== ABSOLUTE PATH ATTEMPTS =====
+^/etc/
+^/root/
+^/home/[^/]+/\.(ssh|bash|zsh)
+^/var/(log|www|lib)/
+^/proc/
+^/sys/
+^C:\\Windows\\
+^C:\\Program Files
+^C:\\Users\\[^\\]+\\AppData
+
+# ===== TILDE EXPANSION =====
+~/\.\.
+^~/../
+~/\.\./
+
+# ===== FILE PROTOCOL =====
+^file:///
+^file://localhost/
+^file://
+
+# ===== SENSITIVE FILE TARGETING =====
+/etc/passwd$
+/etc/shadow$
+/\.ssh/id_rsa$
+/\.ssh/id_dsa$
+/\.ssh/authorized_keys$
+/\.env$
+/\.git/config$
+/config/database\.yml$
+/\.aws/credentials$
+/\.docker/config\.json$
+system32/config/sam$
+/proc/self/environ$
+
+# ===== OBFUSCATION TECHNIQUES =====
+\.\.%c0%af
+\.\.%c1%9c
+\.\.%c0%5c
+\.\.%c0%2f
+\.\.%5c
+\.\.%2f
+%2e%2e%c0%af
+\.\./\.\./\./
+
+# ===== NESTED/RECURSIVE PATTERNS =====
+(\.\./){4,}
+(\.\.\\){4,}
+(\.\./\.\.\\){2,}
+
+# ===== CASE VARIATIONS (Windows) =====
+(?i)\.\.\\windows\\system32
+(?i)\.\.\\program files
+(?i)\.\.\\appdata
+
+# ===== DIRECTORY ENUMERATION INDICATORS =====
+/\.\.$
+/\.\./\.\.$
+^\.\./?$
+
+# ===== MIXED ENCODING =====
+\.\./\.%2e/
+%2e\./\.\./
+\.\./\.\.%5c
+\.\.\\%2e%2e/
+

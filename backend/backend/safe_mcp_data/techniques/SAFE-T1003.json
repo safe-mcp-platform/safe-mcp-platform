@@ -1,0 +1,90 @@
+{
+  "id": "SAFE-T1003",
+  "name": "SAFE-T1003: Malicious MCP-Server Distribution",
+  "tactic": "Initial Access",
+  "description": "Malicious MCP-Server Distribution involves adversaries shipping trojanized MCP server packages or Docker images that users install, gaining initial foothold when the host registers the server's tools. This technique differs from supply chain compromise in that attackers create entirely new malicious packages rather than compromising existing ones.\n\nThe attack leverages the trust users place in MCP servers that appear legitimate and the elevated privileges typically granted to MCP servers for accessing system resources and APIs.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-32",
+    "SAFE-M-23",
+    "SAFE-M-30",
+    "SAFE-M-27",
+    "SAFE-M-26",
+    "SAFE-M-24",
+    "SAFE-M-29",
+    "SAFE-M-31",
+    "SAFE-M-28",
+    "SAFE-M-25"
+  ],
+  "mitre_mappings": [
+    "T1006",
+    "T1002",
+    "T1204",
+    "T1203",
+    "T1566",
+    "T1003",
+    "T1204.002"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "useful",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "productivity-tools@example.com",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "regex",
+        "pattern": "Advanced file management and productivity tools for MCP",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "1.0.0",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "$(env)",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1003-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

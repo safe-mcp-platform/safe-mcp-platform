@@ -1,0 +1,60 @@
+# SAFE-T1102: Prompt Injection Detection Patterns
+# These regex patterns detect malicious instructions in MCP tool descriptions
+# that attempt to override AI agent behavior
+
+# ===== INSTRUCTION OVERRIDE PATTERNS =====
+ignore\s+(all\s+)?previous\s+instructions?
+disregard\s+(all\s+)?(previous\s+)?(system\s+)?prompts?
+forget\s+(all\s+)?previous\s+(instructions?|prompts?|context)
+override\s+(all\s+)?(previous\s+)?(instructions?|prompts?|rules?)
+
+# ===== ROLE MANIPULATION PATTERNS =====
+you\s+are\s+now\s+(in\s+)?developer\s+mode
+you\s+are\s+now\s+(a\s+)?DAN\s*(\(|$)
+(act|pretend|roleplay)\s+as\s+(if\s+)?you\s+(are|were)\s+(a\s+)?
+now\s+you\s+(can|will|must|should)\s+(do|act|behave|respond)
+
+# ===== SYSTEM PROMPT BYPASS =====
+\[SYSTEM\].*?(override|disable|ignore|bypass)
+<system[^>]*>.*?(override|disable|ignore|bypass)
+system[:\s]+disable\s+(all\s+)?safety
+new\s+system\s+prompt:
+\*\*system\*\*:.*?(override|disable|ignore)
+
+# ===== JAILBREAK ATTEMPTS =====
+\bDAN\b.*?(do\s+anything|without\s+restrictions?)
+jailbreak(ing)?\s+(the\s+)?ai
+bypass\s+(all\s+)?(restrictions?|limitations?|guidelines?)
+(unlimited|unrestricted)\s+(access|mode|capabilities?)
+no\s+(restrictions?|limitations?|rules?|guidelines?)
+
+# ===== PRIVILEGE ESCALATION INDICATORS =====
+(give|grant|provide)\s+me\s+(admin|administrator|root|sudo|superuser)
+with\s+(admin|administrator|root|elevated|full)\s+(access|privileges?|permissions?)
+enable\s+(admin|developer|debug|god)\s+mode
+(act|behave|respond)\s+as\s+(an?\s+)?(admin|administrator|superuser)
+
+# ===== HIDDEN INSTRUCTIONS =====
+\[hidden\s+instruction
+<hidden[^>]*>
+<!--.*?(ignore|override|execute|run).*?-->
+\{hidden:.*?\}
+
+# ===== META PROMPT MANIPULATION =====
+forget\s+your\s+(training|instructions?|guidelines?)
+(reset|clear|wipe)\s+your\s+(memory|context|state)
+new\s+(instructions?|rules?|guidelines?):
+from\s+now\s+on[,:]?\s+(you\s+)?(will|must|should|can)
+
+# ===== SAFETY MECHANISM OVERRIDE =====
+disable\s+(all\s+)?safety\s+(protocols?|measures?|checks?|features?)
+turn\s+off\s+(all\s+)?(safety|security|restrictions?)
+(remove|bypass|disable|deactivate)\s+(all\s+)?(filters?|guardrails?)
+without\s+(safety|security|ethical)\s+(checks?|considerations?)
+
+# ===== ENCODED/OBFUSCATED ATTEMPTS =====
+ign0re\s+prev1ous
+d[i1!]sregard.*?[i1!]nstruct[i1!]ons?
+syst[e3]m.*?overr[i1!]de
+byp[a4]ss.*?s[a4]f[e3]ty
+

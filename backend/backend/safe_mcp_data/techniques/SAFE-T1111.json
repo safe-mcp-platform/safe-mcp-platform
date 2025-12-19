@@ -1,0 +1,89 @@
+{
+  "id": "SAFE-T1111",
+  "name": "SAFE-T1111: AI Agent CLI Weaponization",
+  "tactic": "Execution",
+  "description": "AI Agent CLI Weaponization is an advanced execution technique where adversaries programmatically abuse locally-installed AI coding assistants and command-line interface (CLI) tools to perform automated reconnaissance, data collection, and exfiltration. This technique emerged from supply chain attacks where compromised packages contain malicious scripts that automatically weaponize AI development tools without user interaction, bypassing their safety controls through dangerous flag combinations.\n\nThe technique operates by exploiting the presence of AI coding assistants on developer machines, invoking them programmatically with security-bypassing flags (like `--dangerously-skip-permissions`, `--yolo`, `--trust-all-tools`) during package installation or other automated processes. The malicious code provides carefully crafted prompts that instruct AI agents to inventory sensitive files and assist in data exfiltration. This attack vector is particularly insidious because it occurs automatically through trusted package installation workflows, requiring no user interaction or social engineering, and transforms legitimate development tools into reconnaissance and exfiltration agents.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-8",
+    "SAFE-M-2",
+    "SAFE-M-6",
+    "SAFE-M-12",
+    "SAFE-M-4"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1195.002",
+    "T1104",
+    "T1005",
+    "T1087",
+    "T1195",
+    "T1111",
+    "T1059",
+    "T1601",
+    "T1041",
+    "T1001"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "--help",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "--version",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "--dangerously-skip-permissions",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "--skip-safety",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "project_directory",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1111-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "id": "SAFE-T1202",
+  "name": "SAFE-T1202: OAuth Token Persistence",
+  "tactic": "Persistence",
+  "description": "OAuth Token Persistence is a technique where adversaries steal and reuse OAuth access/refresh tokens for persistent access to MCP-connected services, including replay of refresh tokens after legitimate client sessions end. This attack exploits the long-lived nature of OAuth refresh tokens and the trust relationships established between MCP servers and external services.\n\nUnlike traditional session hijacking that typically affects single applications, OAuth token persistence in MCP environments enables adversaries to maintain unauthorized access across multiple interconnected services through the protocol's standardized authentication mechanisms. The attack is particularly concerning in MCP deployments where refresh tokens may have extended validity periods (up to 90 days) and can be used to mint new access tokens without user interaction.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-1",
+    "SAFE-M-10",
+    "SAFE-M-11",
+    "SAFE-M-5",
+    "SAFE-M-8",
+    "SAFE-M-3",
+    "SAFE-M-2",
+    "SAFE-M-6",
+    "SAFE-M-12",
+    "SAFE-M-7",
+    "SAFE-M-4"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1556",
+    "T1202",
+    "T1539",
+    "T1528",
+    "T1601",
+    "T1007",
+    "T1001"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "attack_type",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "oauth_token_persistence",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "target",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "mcp_gmail_server",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "stolen_token",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1202-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

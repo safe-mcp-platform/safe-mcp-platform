@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://safe-mcp-platform.io/schemas/technique.json",
+  
+  "id": "SAFE-TXXXX",
+  "name": "Technique Name (Short, Descriptive)",
+  "severity": "CRITICAL | HIGH | MEDIUM | LOW",
+  "tactic": "MITRE ATT&CK Tactic Name",
+  "description": "Detailed description of what this technique detects. Explain the attack vector, how it works, and why it's dangerous.",
+  
+  "detection": {
+    "patterns": {
+      "enabled": false,
+      "file": "patterns/TXXXX_patterns.txt",
+      "confidence": 0.0,
+      "case_sensitive": false,
+      "note": "Set enabled=true and add patterns file"
+    },
+    "ml_model": {
+      "enabled": false,
+      "name": "safe-mcp/TXXXX-detector",
+      "threshold": 0.75,
+      "confidence": 0.0,
+      "note": "Set enabled=true after training model"
+    },
+    "rules": {
+      "enabled": false,
+      "validator": "rules.TXXXX_rules.validate",
+      "confidence": 0.0,
+      "note": "Set enabled=true after implementing rules"
+    },
+    "behavioral": {
+      "enabled": false,
+      "patterns": [],
+      "lookback_window": 300,
+      "confidence": 0.0,
+      "note": "Set enabled=true for multi-turn detection"
+    }
+  },
+  
+  "examples": {
+    "malicious": [
+      "Example 1 of malicious input that should be detected",
+      "Example 2 of malicious input",
+      "Example 3 of malicious input"
+    ],
+    "benign": [
+      "Example 1 of legitimate input that should NOT be detected",
+      "Example 2 of legitimate input",
+      "Example 3 of legitimate input"
+    ]
+  },
+  
+  "response": {
+    "action": "BLOCK | WARN | LOG",
+    "log_level": "CRITICAL | HIGH | MEDIUM | LOW",
+    "alert": true,
+    "custom_message": "Optional custom message to return to user"
+  },
+  
+  "metadata": {
+    "contributor": "@YOUR-GITHUB-USERNAME",
+    "created": "YYYY-MM-DD",
+    "updated": "YYYY-MM-DD",
+    "status": "draft | review | approved",
+    "version": "1.0",
+    "references": [
+      "https://github.com/safe-mcp/safe-mcp/blob/main/techniques/TXXXX.md",
+      "Additional reference URLs"
+    ]
+  },
+  
+  "testing": {
+    "test_file": "tests/test_TXXXX.py",
+    "test_cases": 0,
+    "coverage": 0.0,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.0
+  },
+  
+  "performance": {
+    "avg_latency_ms": 0.0,
+    "p95_latency_ms": 0.0,
+    "p99_latency_ms": 0.0,
+    "cpu_usage": 0.0,
+    "memory_mb": 0.0
+  }
+}
+

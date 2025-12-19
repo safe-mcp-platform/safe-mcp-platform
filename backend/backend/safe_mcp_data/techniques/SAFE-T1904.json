@@ -1,0 +1,86 @@
+{
+  "id": "SAFE-T1904",
+  "name": "SAFE-T1904: Chat-Based Backchannel",
+  "tactic": "Command and Control",
+  "description": "Chat-Based Backchannel is a covert communication technique where an LLM (or MCP tool) embeds hidden data inside otherwise normal-looking textual responses. Common carriers include base64-encoded blobs, `data:*;base64,` URIs, zero-width characters, long opaque identifiers, or HTML/Markdown comments. A cooperating or downstream agent then decodes these carriers and treats the revealed content as instructions, configuration, or data—forming a stealthy command-and-control (C2) channel within routine chat.\n\nWithin MCP ecosystems, this often manifests when one tool or agent returns normal `text/markdown` while embedding a base64 payload; another agent in the workflow (e.g., an “analysis” or “inspector” bot) is configured to automatically decode base64 or process data URIs. That decoding step silently transfers control/data across trust boundaries, bypassing policy and content filters that only examine surface text.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-23",
+    "SAFE-M-21",
+    "SAFE-M-22",
+    "SAFE-M-36",
+    "SAFE-M-34",
+    "SAFE-M-33",
+    "SAFE-M-4"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1110",
+    "T1402",
+    "T1904",
+    "T1001",
+    "T2107"
+  ],
+  "severity": "MEDIUM",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "conversation_id",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "conv_9f3d1",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "assistant_response",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "regex",
+        "pattern": "Here are your requested results. For reproducibility, I’ve included an encoded artifact below.",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "artifact",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1904-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

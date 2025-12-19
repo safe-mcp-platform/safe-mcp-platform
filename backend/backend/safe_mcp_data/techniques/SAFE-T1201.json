@@ -1,0 +1,93 @@
+{
+  "id": "SAFE-T1201",
+  "name": "SAFE-T1201: MCP Rug Pull Attack",
+  "tactic": "Persistence",
+  "description": "MCP Rug Pull Attack refers to a persistence technique where adversaries deploy legitimate-appearing MCP tools that later undergo time-delayed malicious modifications after gaining initial user approval and trust. This technique exploits the dynamic nature of MCP tool definitions and the tendency for users to approve tools based on initial functionality without ongoing verification.\n\nThe attack involves a multi-stage approach: first establishing trust through legitimate tool behavior, then introducing malicious functionality through server-side updates, configuration changes, or time-based triggers. This technique is particularly effective because it bypasses initial security reviews and user approval processes by leveraging the established trust relationship.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-44",
+    "SAFE-M-50",
+    "SAFE-M-48",
+    "SAFE-M-46",
+    "SAFE-M-49",
+    "SAFE-M-52",
+    "SAFE-M-47",
+    "SAFE-M-55",
+    "SAFE-M-45",
+    "SAFE-M-51",
+    "SAFE-M-54",
+    "SAFE-M-53"
+  ],
+  "mitre_mappings": [
+    "T1201",
+    "T1002",
+    "T1195",
+    "T1204",
+    "T1554",
+    "T1205",
+    "T1001",
+    "T1027"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "file_processor",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "description",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "regex",
+        "pattern": "Process and analyze text files for productivity insights",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "inputSchema",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1201-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "SAFE-T1106",
+  "name": "SAFE-T1106: Autonomous Loop Exploit",
+  "tactic": "Execution",
+  "description": "An adversary induces an MCP-enabled agent or workflow into a self-reinforcing loop of tool invocations (for example, “re-check,” “try again,” or delegation cycles) to exhaust local compute, hit external service rate limits, or drive quota/cost blowups. The loop can be triggered by attacker-controlled prompts, poisoned intermediate tool outputs, or cyclic multi-agent handoffs. Without convergence checks, iteration caps, or budget guardrails, the system repeatedly invokes tools with little or no progress—resulting in availability impact similar to Endpoint DoS.\n\nThis is conceptually related to application/protocol loop DoS, where two components continuously respond to each other (see References), but here the loop is induced via agent planning and MCP tool I/O patterns.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-20",
+    "SAFE-M-11",
+    "SAFE-M-23",
+    "SAFE-M-21",
+    "SAFE-M-16",
+    "SAFE-M-3",
+    "SAFE-M-22",
+    "SAFE-M-12"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1703",
+    "T1499",
+    "T1106",
+    "T1499.003"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "warming_up,",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "retry_later",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "session_goal",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "regex",
+        "pattern": "Ensure service is healthy; keep checking until it's green.",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "policy",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1106-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

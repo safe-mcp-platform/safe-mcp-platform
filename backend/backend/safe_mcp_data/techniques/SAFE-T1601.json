@@ -1,0 +1,93 @@
+{
+  "id": "SAFE-T1601",
+  "name": "SAFE-T1601: MCP Server Enumeration",
+  "tactic": "Discovery",
+  "description": "MCP Server Enumeration refers to the systematic discovery and mapping of available Model Context Protocol (MCP) servers and their exposed tools, resources, and capabilities within a network environment. This technique exploits the inherent discoverability features of the MCP protocol to gather intelligence about AI-enabled systems and their integration points.\n\nThe technique leverages both network-level scanning and protocol-level enumeration to build comprehensive inventories of MCP infrastructure. Unlike traditional service enumeration, MCP server discovery can reveal not just the presence of services, but detailed capability mappings including available tools, data sources, and AI workflow patterns. This intelligence gathering phase serves as a critical precursor to more sophisticated attacks against AI systems and their connected resources.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-44",
+    "SAFE-M-50",
+    "SAFE-M-48",
+    "SAFE-M-46",
+    "SAFE-M-49",
+    "SAFE-M-52",
+    "SAFE-M-47",
+    "SAFE-M-55",
+    "SAFE-M-45",
+    "SAFE-M-51",
+    "SAFE-M-54",
+    "SAFE-M-53"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1104",
+    "T1595",
+    "T1602",
+    "T1040",
+    "T1046",
+    "T1601",
+    "T1001"
+  ],
+  "severity": "MEDIUM",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "tools/list",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "Discovered tools:",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "tools",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "database_query",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1601-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

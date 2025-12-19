@@ -1,0 +1,82 @@
+{
+  "id": "SAFE-T1703",
+  "name": "SAFE-T1703: Tool-Chaining Pivot",
+  "tactic": "Lateral Movement",
+  "description": "Tool-Chaining Pivot refers to an advanced lateral movement technique where attackers compromise a low-privileged MCP tool and then leverage it as a stepping stone to indirectly access or invoke higher-privileged tools within the same MCP ecosystem. This technique exploits the interconnected nature of MCP tool architectures and trust relationships between tools to escalate privileges and expand access without directly compromising the target high-privilege tool.\n\nThe attack leverages the fact that MCP tools often have implicit trust relationships and can interact with each other through shared resources, data sources, or through the MCP client's context. Attackers exploit these trust boundaries to perform actions that would normally require direct access to privileged tools, effectively bypassing security controls through a chain of tool interactions.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-56",
+    "SAFE-M-57"
+  ],
+  "mitre_mappings": [
+    "T1104",
+    "T1068",
+    "T1703",
+    "T1021",
+    "T1550",
+    "T1601",
+    "T1001"
+  ],
+  "severity": "CRITICAL",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "data_reader",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "description",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "Read data from shared database",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "privileges",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1703-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "SAFE-T1602",
+  "name": "SAFE-T1602: Tool Enumeration",
+  "tactic": "Discovery",
+  "description": "Tool enumeration is a reconnaissance technique where an adversary attempts to identify which tools, services, plugins, connectors, or helper components exist in a target environment—including their versions and configurations. The goal is to understand the capabilities exposed by the environment (e.g., code execution helpers, file access APIs, external connectors) to identify potential follow-on attack opportunities such as misconfigured services, unpatched versions, or weak authentication.  \n\n---",
+  "examples": [
+    "An attacker with a stolen developer API key quietly probes an MCP, enumerates available tools (storage, external fetch, job runner), and uses them in low-noise steps to steal credentials and exfiltrate sensitive data. This leads to:",
+    "High confidentiality loss",
+    "Moderate integrity damage (e.g., tampered training artifacts)",
+    "Temporary availability degradation (resource-heavy jobs)"
+  ],
+  "detection_guidance": "Defenders can monitor for:\n\n- Unusual access to tool endpoints (repeated queries, abnormal IPs/geos)  \n- Requests probing model or API capabilities or structured to elicit metadata  \n- High-frequency, low-volume activity across multiple tools  \n- Unexpected sequences of tool invocations  \n- Anomalous outbound connections after tool usage  \n- Authentication anomalies (stolen/unusual API keys, unauthorized manifest access)  \n\n**Monitoring strategies:** centralize logging, correlate user/IP patterns, alert on high-volume or suspicious sequences, apply rate limiting and anomaly detection.  \n\n---",
+  "mitigations": [],
+  "mitre_mappings": [
+    "T1602"
+  ],
+  "severity": "MEDIUM",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1602-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

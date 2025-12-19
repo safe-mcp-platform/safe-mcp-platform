@@ -1,0 +1,21 @@
+{
+  "attack_name": "Path Traversal Attack",
+  "technique_id": "SAFE-T1601",
+  "severity": "HIGH",
+  "description": "Attacker attempts to access sensitive files using path traversal",
+  "mcp_message": {
+    "jsonrpc": "2.0",
+    "method": "tools/call",
+    "params": {
+      "name": "read_file",
+      "arguments": {
+        "path": "../../../../etc/passwd"
+      }
+    },
+    "id": 2
+  },
+  "expected_detection": true,
+  "expected_risk_level": "HIGH",
+  "expected_action": "BLOCK"
+}
+

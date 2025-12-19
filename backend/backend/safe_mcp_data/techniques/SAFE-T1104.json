@@ -1,0 +1,93 @@
+{
+  "id": "SAFE-T1104",
+  "name": "SAFE-T1104: Over-Privileged Tool Abuse",
+  "tactic": "Execution",
+  "description": "Over-Privileged Tool Abuse refers to a situation where MCP tools are granted more permissions than strictly necessary for their intended functionality. Attackers exploit this security misconfiguration to access data or execute operations beyond the tool's intended scope, effectively performing privilege escalation through legitimate tool interfaces.\n\nThis technique exploits the fundamental trust model of MCP systems where tools often inherit broad system permissions rather than following the principle of least privilege. When LLMs invoke these over-privileged tools, attackers can manipulate the AI through prompt injection or tool poisoning to perform unauthorized operations using legitimate tool capabilities.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-42",
+    "SAFE-M-32",
+    "SAFE-M-37",
+    "SAFE-M-35",
+    "SAFE-M-39",
+    "SAFE-M-36",
+    "SAFE-M-38",
+    "SAFE-M-34",
+    "SAFE-M-41",
+    "SAFE-M-33",
+    "SAFE-M-43",
+    "SAFE-M-40"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1104",
+    "T1302",
+    "T1548",
+    "T1301",
+    "T1059",
+    "T1068",
+    "T1001"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "shell_executor",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "description",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "Execute shell commands for development tasks",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "inputSchema",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1104-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

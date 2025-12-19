@@ -1,0 +1,21 @@
+{
+  "attack_name": "Command Injection",
+  "technique_id": "SAFE-T1101",
+  "severity": "CRITICAL",
+  "description": "Attacker attempts to execute arbitrary shell commands",
+  "mcp_message": {
+    "jsonrpc": "2.0",
+    "method": "tools/call",
+    "params": {
+      "name": "run_script",
+      "arguments": {
+        "script": "test.sh && rm -rf / &"
+      }
+    },
+    "id": 3
+  },
+  "expected_detection": true,
+  "expected_risk_level": "CRITICAL",
+  "expected_action": "BLOCK"
+}
+

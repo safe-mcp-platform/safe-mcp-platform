@@ -1,0 +1,83 @@
+{
+  "id": "SAFE-T2107",
+  "name": "SAFE-T2107: AI Model Poisoning via MCP Tool Training Data Contamination",
+  "tactic": "Impact",
+  "description": "AI Model Poisoning via MCP Tool Training Data Contamination is a sophisticated attack technique where adversaries inject malicious patterns into MCP tool outputs that are subsequently used as training data for AI models. This creates persistent backdoors and vulnerabilities that persist across model deployments, updates, and even when the original MCP tools are removed.\n\nMCP tools are increasingly used to generate, collect, and process training data for AI models. Attackers exploit this by contaminating the data pipeline at the MCP tool level, ensuring that malicious patterns become embedded in the model's learned behavior. Unlike traditional prompt injection attacks that are temporary, this technique creates persistent vulnerabilities that can be triggered by specific inputs even after the initial attack vector is removed.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-35",
+    "SAFE-M-36",
+    "SAFE-M-33",
+    "SAFE-M-34"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1195",
+    "T2106",
+    "T1574",
+    "T1001",
+    "T2107"
+  ],
+  "severity": "CRITICAL",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "conversation_id",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "conv_12345",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "user_input",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "How do I reset my password?",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "assistant_response",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t2107-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

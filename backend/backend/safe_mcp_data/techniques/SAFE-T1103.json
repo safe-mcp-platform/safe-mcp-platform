@@ -1,0 +1,78 @@
+{
+  "id": "SAFE-T1103",
+  "name": "SAFE-T1103: Fake Tool Invocation (Function Spoofing)",
+  "tactic": "Execution",
+  "description": "Adversaries may forge JSON-RPC messages that mimic legitimate MCP function-call messages, tricking the host into executing tools that were never actually offered by any connected MCP server. This technique exploits the trust relationship between MCP hosts and clients by crafting malicious JSON payloads that appear to be valid tool invocation requests.\n\nIn normal MCP operations, tools are registered by servers and then invoked by hosts through standardized JSON-RPC 2.0 messages. However, if the host does not properly validate that requested tools actually exist and are authorized, an attacker can inject fabricated tool calls that bypass the normal server registration process. This can lead to execution of unauthorized functions, access to restricted resources, or manipulation of the MCP session state.\n\nThe attack is particularly dangerous because it exploits the fundamental trust model of MCP, where hosts typically assume that tool calls are legitimate requests from registered servers. By spoofing these messages, attackers can effectively \"shadow\" legitimate tools or invoke entirely fictitious functions.",
+  "examples": [],
+  "detection_guidance": "### Runtime Detection\n```python\n# Tool validation detector\nclass ToolCallValidator:\n    def __init__(self):\n        self.registered_tools = set()\n        \n    def register_tool(self, tool_name, server_id):\n        self.registered_tools.add((tool_name, server_id))\n        \n    def validate_tool_call(self, tool_name, message_source):\n        # Check if tool was actually registered\n        valid_tools = [t for t, s in self.registered_tools \n                      if t == tool_name and s == message_source]\n        \n        if not valid_tools:\n            self.log_security_event(\"FAKE_TOOL_INVOCATION\", {\n                \"tool_name\": tool_name,\n                \"source\": message_source,\n                \"timestamp\": time.time()\n            })\n            return False\n        return True\n```",
+  "mitigations": [],
+  "mitre_mappings": [
+    "T1101",
+    "T1102",
+    "T1401",
+    "T1103",
+    "T1301",
+    "T1574"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "shadow",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "jsonrpc",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "2.0",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "method",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "tools/call",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1103-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

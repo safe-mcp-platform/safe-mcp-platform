@@ -1,0 +1,106 @@
+[project]
+name = "safe-mcp"
+version = "1.0.0"
+description = "Professional CLI for securing Model Context Protocol deployments with 4-channel threat detection"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "SAFE-MCP Platform Team"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = [
+    "mcp",
+    "model-context-protocol",
+    "security",
+    "ai-security",
+    "llm-security",
+    "prompt-injection",
+    "tool-poisoning",
+]
+
+dependencies = [
+    "rich>=13.0.0",
+    "pydantic>=2.0.0",
+    "aiofiles>=23.0.0",
+    "httpx>=0.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+
+server = [
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "psycopg2-binary>=2.9.9",
+    "sqlalchemy>=2.0.0",
+]
+
+all = [
+    "safe-mcp[dev,server]",
+]
+
+[project.urls]
+Homepage = "https://github.com/safe-mcp-platform/safe-mcp-platform"
+Documentation = "https://github.com/safe-mcp-platform/safe-mcp-platform#readme"
+Repository = "https://github.com/safe-mcp-platform/safe-mcp-platform"
+"Bug Tracker" = "https://github.com/safe-mcp-platform/safe-mcp-platform/issues"
+
+[project.scripts]
+safe-mcp = "safe_mcp_cli.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["safe_mcp_cli"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "UP",   # pyupgrade
+    "SIM",  # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py310", "py311", "py312"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+
+[[tool.mypy.overrides]]
+module = "rich.*"
+ignore_missing_imports = true
+

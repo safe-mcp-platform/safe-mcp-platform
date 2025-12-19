@@ -1,0 +1,93 @@
+{
+  "id": "SAFE-T1301",
+  "name": "SAFE-T1301: Cross-Server Tool Shadowing",
+  "tactic": "Privilege Escalation",
+  "description": "Cross-Server Tool Shadowing is a privilege escalation technique where malicious MCP servers override or intercept legitimate tool calls from other servers to gain elevated privileges. This attack exploits the multi-server nature of MCP environments where multiple servers can provide tools with the same or similar names, allowing attackers to shadow legitimate functionality with malicious implementations.\n\nThe technique leverages the tool resolution and priority mechanisms in MCP clients to ensure that malicious tools are invoked instead of legitimate ones. By registering tools with identical names or exploiting tool discovery protocols, attackers can intercept sensitive operations and escalate their privileges within the MCP ecosystem.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-67",
+    "SAFE-M-59",
+    "SAFE-M-63",
+    "SAFE-M-57",
+    "SAFE-M-65",
+    "SAFE-M-56",
+    "SAFE-M-64",
+    "SAFE-M-66",
+    "SAFE-M-58",
+    "SAFE-M-61",
+    "SAFE-M-60",
+    "SAFE-M-62"
+  ],
+  "mitre_mappings": [
+    "T1104",
+    "T1302",
+    "T1548",
+    "T1002",
+    "T1301",
+    "T1134",
+    "T1068",
+    "T1001"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "file_manager",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "description",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "regex",
+        "pattern": "Manage files with read-only access to user directories",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "inputSchema",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1301-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

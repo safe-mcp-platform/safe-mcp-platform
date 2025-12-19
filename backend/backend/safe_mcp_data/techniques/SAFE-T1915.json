@@ -1,0 +1,88 @@
+{
+  "id": "SAFE-T1915",
+  "name": "SAFE-T1915: Cross-Chain Laundering via Bridges/DEXs (\"Chain-Hopping\")",
+  "tactic": "Command and Control",
+  "description": "Adversaries obscure the provenance of illicit value by **moving funds across multiple blockchains** (e.g., Ethereum → Avalanche → TRON) using **cross-chain bridges, decentralized exchanges (DEXs), swap/aggregator services, and wrapped assets**. This **\"chain-hopping\"** breaks simple single-chain traces and is often combined with mixers and stablecoin swaps before **cash-out at custodial off-ramps**.\n\nThis technique exploits the technical complexity of tracking assets across multiple blockchain networks with different architectures, consensus mechanisms, and transaction formats. By fragmenting transaction trails across chains, adversaries increase the difficulty and cost of forensic analysis for investigators and compliance teams.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-48",
+    "SAFE-M-46",
+    "SAFE-M-1",
+    "SAFE-M-10",
+    "SAFE-M-8",
+    "SAFE-M-47",
+    "SAFE-M-2",
+    "SAFE-M-19"
+  ],
+  "mitre_mappings": [
+    "T1915",
+    "T1048",
+    "T1911",
+    "T1914",
+    "T1910",
+    "T2104",
+    "T1913"
+  ],
+  "severity": "MEDIUM",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "Chain-Hopping",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "chain-hopping",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "scenario",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "Automated chain-hopping via MCP tool",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "attack_sequence",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1915-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

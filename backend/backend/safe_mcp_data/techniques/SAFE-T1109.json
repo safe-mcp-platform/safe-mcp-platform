@@ -1,0 +1,88 @@
+{
+  "id": "SAFE-T1109",
+  "name": "SAFE-T1109: Debugging Tool Exploitation",
+  "tactic": "Execution",
+  "description": "Debugging Tool Exploitation is an attack technique where adversaries exploit vulnerabilities in MCP development and debugging tools to achieve remote code execution. This technique specifically targets the MCP Inspector, Anthropic's official debugging tool for MCP servers, which contains a critical vulnerability (CVE-2025-49596) that allows unauthenticated remote code execution through browser-based attacks.\n\nThe MCP Inspector consists of two components: a React-based web UI and a Node.js proxy server. The vulnerability stems from the lack of authentication between these components and the default configuration binding to all network interfaces (0.0.0.0), creating a significant attack surface that can be exploited from malicious websites.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-30",
+    "SAFE-M-27",
+    "SAFE-M-26",
+    "SAFE-M-24",
+    "SAFE-M-29",
+    "SAFE-M-31",
+    "SAFE-M-28",
+    "SAFE-M-25"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1401",
+    "T1109",
+    "T1059",
+    "T1190",
+    "T1566",
+    "T1001"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "http://0.0.0.0:6277/sse?transportType=stdio&command=calc.exe",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "method",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "GET",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "mode",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "no-cors",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1109-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

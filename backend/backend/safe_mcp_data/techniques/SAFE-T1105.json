@@ -1,0 +1,82 @@
+{
+  "id": "SAFE-T1105",
+  "name": "SAFE-T1105: Path Traversal via File Tool",
+  "tactic": "Execution",
+  "description": "Path Traversal via File Tool is a technique where attackers exploit MCP file-handling tools that accept relative paths to access files outside the intended directory scope. This allows unauthorized access to sensitive system files and configuration data.\n\nMCP file tools (such as file readers, writers, or directory browsers) that accept relative paths without proper validation can be exploited to traverse outside their intended directory boundaries. Attackers can use path traversal sequences like `../` to access sensitive files, configuration data, or system secrets that should be outside the tool's scope.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [],
+  "mitre_mappings": [
+    "T1104",
+    "T1059.004",
+    "T1005",
+    "T1083",
+    "T1108",
+    "T1106",
+    "T1059",
+    "T1190",
+    "T1105",
+    "T1107"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "/etc/passwd, /etc/shadow",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "~/.ssh/id_rsa, ~/.ssh/id_rsa.pub",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": ".env, config.json, secrets.yaml",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "/proc/version, /sys/class/net",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "regex",
+        "pattern": "Can you read the configuration file for my project?",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1105-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

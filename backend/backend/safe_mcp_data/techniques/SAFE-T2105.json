@@ -1,0 +1,97 @@
+{
+  "id": "SAFE-T2105",
+  "name": "SAFE-T2105: Disinformation Output",
+  "tactic": "Impact",
+  "description": "Disinformation Output is an attack technique where adversaries manipulate Large Language Models through MCP tools to generate false, misleading, or harmful content that is distributed to downstream consumers. This technique exploits the trust users place in AI-generated content and the difficulty in distinguishing between legitimate and manipulated outputs.\n\nMCP systems amplify this risk by providing tools that can influence model behavior, access external data sources, and distribute content to multiple channels. Attackers leverage prompt injection, tool poisoning, context manipulation, and other techniques to cause AI systems to produce disinformation that appears authoritative and trustworthy while serving malicious objectives.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-1",
+    "SAFE-M-10",
+    "SAFE-M-11",
+    "SAFE-M-5",
+    "SAFE-M-3",
+    "SAFE-M-2",
+    "SAFE-M-6",
+    "SAFE-M-12",
+    "SAFE-M-4"
+  ],
+  "mitre_mappings": [
+    "T2105.004",
+    "T1102",
+    "T1586",
+    "T1565",
+    "T2105.002",
+    "T1301",
+    "T2106",
+    "T2105.005",
+    "T1496",
+    "T1705",
+    "T2105",
+    "T2105.001",
+    "T2105.003",
+    "T1001",
+    "T2107"
+  ],
+  "severity": "CRITICAL",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "scenario",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "stock_analysis_manipulation",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "target",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "AI-powered financial advisory system",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "attack_vector",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t2105-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

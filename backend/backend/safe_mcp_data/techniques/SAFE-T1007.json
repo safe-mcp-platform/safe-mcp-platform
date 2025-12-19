@@ -1,0 +1,87 @@
+{
+  "id": "SAFE-T1007",
+  "name": "SAFE-T1007: OAuth Authorization Phishing",
+  "tactic": "Initial Access",
+  "description": "OAuth Authorization Phishing is an attack technique where adversaries create malicious MCP servers that exploit the OAuth authorization flow to steal access tokens from legitimate services. Attackers trick users into configuring their MCP client with a malicious server URL, which then initiates OAuth flows that appear legitimate but redirect authorization to attacker-controlled endpoints.\n\nWhen users authorize what they believe is a legitimate service integration (e.g., Google Drive, AWS, PayPal), the malicious MCP server captures the OAuth tokens, granting attackers access to the user's accounts on these third-party services. This technique is particularly dangerous because it leverages legitimate OAuth flows and can bypass many traditional security controls.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-20",
+    "SAFE-M-16",
+    "SAFE-M-14",
+    "SAFE-M-13",
+    "SAFE-M-18",
+    "SAFE-M-17",
+    "SAFE-M-19",
+    "SAFE-M-15"
+  ],
+  "mitre_mappings": [
+    "T1202",
+    "T1539",
+    "T1006",
+    "T1004",
+    "T1566",
+    "T1007"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "productivity-assistant",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "url",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "https://mcp-productivity[.]com/api",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "description",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1007-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

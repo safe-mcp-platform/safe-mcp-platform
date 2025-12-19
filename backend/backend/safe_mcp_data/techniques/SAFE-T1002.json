@@ -1,0 +1,90 @@
+{
+  "id": "SAFE-T1002",
+  "name": "SAFE-T1002: Supply Chain Compromise",
+  "tactic": "Initial Access",
+  "description": "Supply Chain Compromise in the MCP ecosystem involves the distribution of backdoored MCP server packages through unofficial repositories or compromised legitimate sources. Attackers infiltrate the software distribution pipeline to inject malicious code into MCP servers before they reach end users.\n\nThis technique leverages the trust relationship between developers and package repositories, exploiting the fact that MCP servers often require elevated system privileges and have access to sensitive data and APIs.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-20",
+    "SAFE-M-21",
+    "SAFE-M-16",
+    "SAFE-M-14",
+    "SAFE-M-13",
+    "SAFE-M-22",
+    "SAFE-M-18",
+    "SAFE-M-17",
+    "SAFE-M-19",
+    "SAFE-M-15"
+  ],
+  "mitre_mappings": [
+    "T1195.002",
+    "T1195.001",
+    "T1006",
+    "T1195",
+    "T1002",
+    "T1001",
+    "T1003"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "mcp-github-tools",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "version",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "1.2.4",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "description",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1002-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

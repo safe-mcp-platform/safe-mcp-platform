@@ -1,0 +1,82 @@
+{
+  "id": "SAFE-T1303",
+  "name": "SAFE-T1303: Container Sandbox Escape via Runtime Exec",
+  "tactic": "Privilege Escalation",
+  "description": "This technique describes escaping a container sandbox by abusing container runtime \"exec\" behavior with a manipulated working directory. By supplying a path-traversal working directory (for example, using sequences like `../`), an attacker may influence where the runtime resolves file paths and process context during `exec`, enabling access outside the intended container filesystem boundary.\n\nIn MCP environments, compromised or malicious tools/servers that orchestrate containerized tasks can craft runtime execution parameters that exploit this behavior. Once the sandbox is bypassed, the adversary can access host resources or processes, pivot to additional systems, and elevate privileges.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-11",
+    "SAFE-M-9",
+    "SAFE-M-14",
+    "SAFE-M-6",
+    "SAFE-M-12"
+  ],
+  "mitre_mappings": [
+    "T1109",
+    "T1303",
+    "T1105",
+    "T1611"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "exec",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "runtime",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "runc",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "action",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "exec",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1303-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

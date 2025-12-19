@@ -1,0 +1,32 @@
+{
+  "servers": [
+    {
+      "name": "filesystem",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "./Documents"],
+      "enabled": true
+    },
+    {
+      "name": "git",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "./projects"],
+      "enabled": true
+    },
+    {
+      "name": "gmail",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gmail"],
+      "env": {
+        "GMAIL_API_KEY": "your-gmail-api-key-here"
+      },
+      "enabled": false
+    },
+    {
+      "name": "database",
+      "command": "python",
+      "args": ["-m", "mcp_server_sqlite", "./data/app.db"],
+      "enabled": false
+    }
+  ]
+}
+

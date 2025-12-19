@@ -1,0 +1,84 @@
+{
+  "id": "SAFE-T1307",
+  "name": "SAFE-T1307: Confused Deputy Attack",
+  "tactic": "Privilege Escalation",
+  "description": "A Confused Deputy Attack occurs when an MCP server with legitimate authority is tricked into misusing its privileges by forwarding authentication tokens or credentials from one user (Alice) to another user's (Bob) MCP instance. The server acts as a \"confused deputy\"—an intermediary with trusted privileges that performs actions on behalf of an attacker without proper authorization checks.\n\nIn MCP environments, this attack exploits the trusted position of MCP servers that handle authentication tokens for multiple users or instances. When a server receives a token scoped for one user but fails to validate the intended recipient before forwarding it, an attacker can leverage the server's authority to impersonate the original token owner and access resources or perform actions beyond their privilege level. The [MCP Security Best Practices](https://modelcontextprotocol.io/specification/draft/basic/security_best_practices) explicitly call out Confused Deputy risks for proxy servers and require per-client consent and audience separation to prevent token passthrough and consent bypass.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [],
+  "mitre_mappings": [
+    "T1307",
+    "T1506",
+    "T1307.002",
+    "T1307.003",
+    "T1306",
+    "T1706",
+    "T1307.001",
+    "T1078",
+    "T1308",
+    "T1550",
+    "T1134",
+    "T1304"
+  ],
+  "severity": "HIGH",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "confused deputy",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "mcp_server",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "shared-oauth-proxy",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "token_handling",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1307-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

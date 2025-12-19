@@ -1,0 +1,86 @@
+{
+  "id": "SAFE-T1705",
+  "name": "SAFE-T1705: Cross-Agent Instruction Injection",
+  "tactic": "Lateral Movement",
+  "description": "Cross-Agent Instruction Injection is a lateral movement technique where adversaries inject malicious directives into multi-agent communication channels to seize control of cooperating agents. This technique exploits the trust relationships between AI agents in distributed systems by manipulating inter-agent messages, compromising entire multi-agent workflows through a single entry point.\n\nThis technique leverages the fundamental communication mechanisms that enable agent collaboration, turning the system's distributed intelligence against itself. Unlike traditional prompt injection attacks that target individual models, Cross-Agent Instruction Injection exploits the network effect of connected agents, allowing attackers to achieve lateral movement and escalate privileges across the entire agent ecosystem through infectious prompt spreading and control-flow hijacking.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-1",
+    "SAFE-M-11",
+    "SAFE-M-5",
+    "SAFE-M-3",
+    "SAFE-M-12"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1702",
+    "T1036",
+    "T1704",
+    "T1705",
+    "T1557",
+    "T1001",
+    "T1036.005"
+  ],
+  "severity": "CRITICAL",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "scenario",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "legal_compliance_query",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "legitimate_agent",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "LegalAdvisor",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "malicious_agent",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1705-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

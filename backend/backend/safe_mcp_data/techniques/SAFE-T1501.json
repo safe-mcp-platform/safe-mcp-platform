@@ -1,0 +1,90 @@
+{
+  "id": "SAFE-T1501",
+  "name": "SAFE-T1501: Full-Schema Poisoning (FSP)",
+  "tactic": "Credential Access",
+  "description": "Full-Schema Poisoning (FSP) is an advanced variant of Tool Poisoning Attack that extends exploitation beyond tool descriptions to encompass entire MCP tool schemas. This technique involves poisoning parameter names, types, default values, constraints, and even output formats to manipulate AI behavior and steal credentials. FSP represents a comprehensive approach to schema manipulation for malicious purposes.\n\nUnlike traditional Tool Poisoning Attacks that focus primarily on descriptions, FSP exploits every component of the MCP tool schema that is processed by the Language Learning Model (LLM), creating multiple vectors for instruction injection and data exfiltration.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-60",
+    "SAFE-M-59",
+    "SAFE-M-57",
+    "SAFE-M-56",
+    "SAFE-M-55",
+    "SAFE-M-58",
+    "SAFE-M-54",
+    "SAFE-M-61",
+    "SAFE-M-53",
+    "SAFE-M-62"
+  ],
+  "mitre_mappings": [
+    "T1501",
+    "T1555",
+    "T1504",
+    "T1552",
+    "T1502",
+    "T1001",
+    "T1003"
+  ],
+  "severity": "CRITICAL",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "name",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "database_query",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "description",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "Execute SQL queries against the database",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "inputSchema",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1501-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

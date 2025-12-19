@@ -1,0 +1,123 @@
+# SAFE-MCP-Platform Production Deployment
+# Complete microservices architecture
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: safemcp-db
+    environment:
+      POSTGRES_USER: safemcp
+      POSTGRES_PASSWORD: safemcp123
+      POSTGRES_DB: safemcp_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U safemcp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - safemcp-network
+
+  # Admin Service
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: safemcp-admin
+    command: python start_admin_service.py
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://safemcp:safemcp123@db:5432/safemcp_db
+      - ADMIN_PORT=8000
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - safemcp-network
+
+  # Detection Service
+  detection:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: safemcp-detection
+    command: python -m uvicorn services.detection_service:app --host 0.0.0.0 --port 8001 --workers 4
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://safemcp:safemcp123@db:5432/safemcp_db
+      - DETECTION_PORT=8001
+      - DETECTION_WORKERS=4
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - ML_MODELS_CACHE_DIR=/app/ml_cache
+      - TECHNIQUES_DIR=techniques
+      - PATTERNS_DIR=patterns
+      - RULES_DIR=rules
+    volumes:
+      - ./backend:/app
+      - ml_cache:/app/ml_cache
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - safemcp-network
+
+  # Gateway Service (MCP Multiplexer)
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: safemcp-gateway
+    command: python start_gateway_service.py
+    ports:
+      - "8002:8002"
+    environment:
+      - GATEWAY_PORT=8002
+      - GATEWAY_WORKERS=2
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - UPSTREAM_CONFIG=/app/config/upstream-servers.json
+      - DETECTION_SERVICE_URL=http://detection:8001
+      - TECHNIQUES_DIR=techniques
+      - PATTERNS_DIR=patterns
+      - RULES_DIR=rules
+    volumes:
+      - ./backend:/app
+      - ./config-templates:/app/config
+    depends_on:
+      - detection
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - safemcp-network
+
+volumes:
+  postgres_data:
+  ml_cache:
+
+networks:
+  safemcp-network:
+    driver: bridge

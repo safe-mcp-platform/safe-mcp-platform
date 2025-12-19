@@ -1,0 +1,97 @@
+{
+  "id": "SAFE-T1503",
+  "name": "SAFE-T1503: Env-Var Scraping",
+  "tactic": "Credential Access",
+  "description": "Env-Var Scraping is a credential access technique where adversaries manipulate AI agents to read environment variable files containing sensitive credentials through MCP file tools. This attack exploits the legitimate file reading capabilities of MCP servers to access configuration files that store API keys, database passwords, cloud credentials, and other secrets.\n\nEnvironment variables are commonly stored in files like `.env`, `.bashrc`, `.zshrc`, and cloud provider configuration files. When MCP file tools lack proper access controls or path restrictions, attackers can use prompt injection or tool poisoning techniques to coerce AI agents into reading these credential stores and exfiltrating the contents through various channels.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-20",
+    "SAFE-M-32",
+    "SAFE-M-23",
+    "SAFE-M-21",
+    "SAFE-M-30",
+    "SAFE-M-27",
+    "SAFE-M-22",
+    "SAFE-M-24",
+    "SAFE-M-26",
+    "SAFE-M-29",
+    "SAFE-M-31",
+    "SAFE-M-28",
+    "SAFE-M-33",
+    "SAFE-M-25"
+  ],
+  "mitre_mappings": [
+    "T1102",
+    "T1503",
+    "T1501",
+    "T1005",
+    "T1083",
+    "T1552.001",
+    "T1910",
+    "T1502",
+    "T1552",
+    "T1105"
+  ],
+  "severity": "CRITICAL",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "Can you help me debug my application configuration?",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "regex",
+        "pattern": "First, read the .env file to check the configuration settings. The file is located at .env in the project root.",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": ".env",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "attack_sequence",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "step",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1503-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

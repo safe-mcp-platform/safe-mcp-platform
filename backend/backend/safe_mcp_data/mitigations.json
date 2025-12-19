@@ -1,0 +1,520 @@
+{
+  "SAFE-M-1": {
+    "id": "SAFE-M-1",
+    "name": "SAFE-M-1: Architectural Defense - Control/Data Flow Separation",
+    "description": "Control/Data Flow Separation is an architectural defense that creates a protective system layer around LLMs by explicitly separating control flow (from trusted queries) from data flow (including untrusted tool descriptions). This approach ensures that malicious instructions embedded in data cannot influence program execution.\n\nThe most notable implementation is CaMeL (Control and Memory Language), developed by researchers from Google and other institutions, which demonstrates 77% task completion with provable security guarantees.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1102",
+      "SAFE-T1001",
+      "SAFE-T1401"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-10": {
+    "id": "SAFE-M-10",
+    "name": "SAFE-M-10: Automated Scanning",
+    "description": "Automated Scanning regularly scans all MCP-related content (tool descriptions, tool outputs, error messages, and API responses) for known malicious patterns and hidden content using signature-based detection, heuristics, and anomaly detection to identify potential threats. This includes real-time scanning of tool outputs before they reach the LLM.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1402",
+      "SAFE-T1102",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-11": {
+    "id": "SAFE-M-11",
+    "name": "SAFE-M-11: Behavioral Monitoring",
+    "description": "Behavioral Monitoring tracks LLM behavior patterns to detect unexpected tool usage, suspicious sequences of operations, or deviations from normal behavior that may indicate compromise or attack. This includes monitoring for signs of prompt injection attacks such as sudden context switches, execution of unrelated commands, or acknowledgment of instructions not visible in the original user request.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1101",
+      "SAFE-T1701",
+      "SAFE-T1102",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-12": {
+    "id": "SAFE-M-12",
+    "name": "SAFE-M-12: Audit Logging",
+    "description": "Audit Logging comprehensively logs all tool descriptions loaded, their full content, and all interactions with MCP servers to enable forensic analysis, compliance, and detection of suspicious activities.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1201",
+      "SAFE-T1001",
+      "SAFE-T1601"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-13": {
+    "id": "SAFE-M-13",
+    "name": "SAFE-M-13: OAuth Flow Verification",
+    "description": "Implement protocol-level verification of OAuth authorization servers and callback URLs to prevent OAuth phishing attacks through malicious MCP servers.",
+    "implementation": "[To be documented]",
+    "techniques_mitigated": [
+      "SAFE-T1007"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-14": {
+    "id": "SAFE-M-14",
+    "name": "SAFE-M-14: Server Allowlisting",
+    "description": "Maintain and enforce a list of trusted MCP server domains to prevent connections to malicious servers.",
+    "implementation": "[To be documented]",
+    "techniques_mitigated": [
+      "SAFE-T1004",
+      "SAFE-T1007"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-15": {
+    "id": "SAFE-M-15",
+    "name": "SAFE-M-15: User Warning Systems",
+    "description": "Display clear warnings when OAuth flows are initiated, showing the requesting MCP server and target service to help users identify phishing attempts.",
+    "implementation": "[To be documented]",
+    "techniques_mitigated": [
+      "SAFE-T1006",
+      "SAFE-T1007"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-16": {
+    "id": "SAFE-M-16",
+    "name": "SAFE-M-16: Token Scope Limiting",
+    "description": "Enforce minimal OAuth scopes and warn users when MCP servers request broad permissions to limit potential damage from compromised tokens.",
+    "implementation": "[To be documented]",
+    "techniques_mitigated": [
+      "SAFE-T1202",
+      "SAFE-T1007"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-17": {
+    "id": "SAFE-M-17",
+    "name": "SAFE-M-17: Callback URL Restrictions",
+    "description": "Validate that OAuth callback URLs match the configured MCP server domain to prevent token redirection to attacker-controlled endpoints.",
+    "implementation": "[To be documented]",
+    "techniques_mitigated": [
+      "SAFE-T1007"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-18": {
+    "id": "SAFE-M-18",
+    "name": "SAFE-M-18: OAuth Flow Monitoring",
+    "description": "Log and analyze all OAuth authorization attempts through MCP to detect suspicious patterns and potential phishing attempts.",
+    "implementation": "[To be documented]",
+    "techniques_mitigated": [
+      "SAFE-T1202",
+      "SAFE-T1007"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-19": {
+    "id": "SAFE-M-19",
+    "name": "SAFE-M-19: Token Usage Tracking",
+    "description": "Monitor usage patterns of OAuth tokens obtained through MCP to detect anomalous access patterns that may indicate compromised tokens.",
+    "implementation": "[To be documented]",
+    "techniques_mitigated": [
+      "SAFE-T1801",
+      "SAFE-T1202",
+      "SAFE-T1007"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-2": {
+    "id": "SAFE-M-2",
+    "name": "SAFE-M-2: Cryptographic Integrity for Tool Descriptions",
+    "description": "Cryptographic Integrity ensures that MCP tool descriptions cannot be tampered with by implementing digital signatures and hash verification. Tool descriptions are signed by trusted authorities, and clients verify these signatures before loading any tool, preventing unauthorized modifications at any point in the supply chain.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1003",
+      "SAFE-T1001",
+      "SAFE-T1002"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-20": {
+    "id": "SAFE-M-20",
+    "name": "SAFE-M-20: Anomaly Detection",
+    "description": "Identify unusual patterns in OAuth requests across MCP servers using machine learning and behavioral analysis to detect novel attack techniques.",
+    "implementation": "[To be documented]",
+    "techniques_mitigated": [
+      "SAFE-T1007",
+      "SAFE-T1601"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-21": {
+    "id": "SAFE-M-21",
+    "name": "SAFE-M-21: Output Context Isolation",
+    "description": "Output Context Isolation uses special delimiters or structured formatting (such as XML-style tags) to clearly separate tool outputs from system instructions in the LLM context. This architectural pattern ensures that data returned by tools cannot be interpreted as instructions by implementing clear boundaries between different types of content. For example, wrapping tool outputs in `<tool-output>...</tool-output>` tags helps the LLM maintain context awareness.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1103",
+      "SAFE-T1102"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-22": {
+    "id": "SAFE-M-22",
+    "name": "SAFE-M-22: Semantic Output Validation",
+    "description": "Semantic Output Validation analyzes tool outputs before they reach the LLM to ensure they match expected formats and don't contain instruction-like patterns. This mitigation goes beyond simple pattern matching by understanding the semantic content and context of outputs, validating that data conforms to expected schemas, and detecting anomalous content that may indicate injection attempts.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1103",
+      "SAFE-T1102"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-23": {
+    "id": "SAFE-M-23",
+    "name": "SAFE-M-23: Tool Output Truncation",
+    "description": "Tool Output Truncation limits the size of tool outputs before they reach the LLM to prevent overwhelming the context with potentially malicious content. This mitigation implements configurable limits on output length, with different thresholds based on tool privilege levels and data types. By constraining output size, it reduces the attack surface for prompt injection attempts that rely on large volumes of text to hide malicious instructions.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1103",
+      "SAFE-T1102",
+      "SAFE-T1601"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-24": {
+    "id": "SAFE-M-24",
+    "name": "SAFE-M-24: Supply Chain Security - SBOM Generation and Verification",
+    "description": "SBOM (Software Bill of Materials) Generation and Verification provides comprehensive visibility into MCP server dependencies and supply chain components through automated generation of detailed component inventories. This mitigation creates machine-readable documentation of all software components, their versions, licenses, and vulnerabilities, enabling organizations to detect compromised or vulnerable dependencies before deployment.\n\nThis approach implements industry-standard SBOM formats (SPDX, CycloneDX) with automated vulnerability scanning and integrity verification, providing proactive defense against supply chain attacks targeting MCP ecosystems.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1203",
+      "SAFE-T1003",
+      "SAFE-T1002"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-29": {
+    "id": "SAFE-M-29",
+    "name": "SAFE-M-29: Explicit Privilege Boundaries",
+    "description": "Explicit Privilege Boundaries is an architectural security control that defines and enforces clear, documented boundaries between MCP tools with different privilege levels. This mitigation prevents privilege escalation attacks by establishing explicit rules about which tools can interact with each other, what resources they can access, and how privilege levels can change during tool execution.\n\nBy implementing explicit privilege boundaries, organizations can prevent tool-chaining pivot attacks, unauthorized privilege escalation, and cross-tool contamination. This approach ensures that even if a low-privilege tool is compromised, it cannot be used to access high-privilege functionality or resources.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1104",
+      "SAFE-T1703"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-3": {
+    "id": "SAFE-M-3",
+    "name": "SAFE-M-3: AI-Powered Content Analysis",
+    "description": "AI-Powered Content Analysis uses specialized LLMs or fine-tuned models to analyze tool descriptions and other inputs for semantic anomalies, hidden instructions, and potential prompt injection attempts before they reach production systems. This approach can detect novel attack patterns that signature-based systems miss.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1402",
+      "SAFE-T1102",
+      "SAFE-T1001",
+      "SAFE-T1401"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-30": {
+    "id": "SAFE-M-30",
+    "name": "SAFE-M-30: Vector Store Integrity Verification",
+    "description": "Vector Store Integrity Verification is a cryptographic control that ensures the authenticity and integrity of embeddings stored in vector databases used by MCP servers. This mitigation prevents attackers from inserting or modifying malicious embeddings by requiring cryptographic signatures for all vector store operations.\n\nThe control implements a chain of trust where each embedding is cryptographically signed before storage, and signatures are verified before retrieval. This prevents both direct manipulation of the vector store and supply chain attacks that attempt to distribute pre-poisoned embeddings.",
+    "implementation": "### 1. Embedding Signing Service\n\n```python\nimport hmac\nimport hashlib\nimport json\nfrom datetime import datetime\nfrom typing import Dict, Any\n\nclass EmbeddingSigner:\n    \"\"\"Provides cryptographic signing for embeddings\"\"\"\n    \n    def __init__(self, secret_key: str):\n        self.secret_key = secret_key.encode()\n    \n    def sign_embedding(self, embedding_data: Dict[str, Any]) -> str:\n        \"\"\"Sign embedding data\"\"\"\n        canonical_data = json.dumps(embedding_data, sort_keys=True, separators=(',', ':'))\n        signature = hmac.new(\n            self.secret_key,\n            canonical_data.encode(),\n            hashlib.sha256\n        ).hexdigest()\n        return signature\n    \n    def verify_signature(self, embedding_data: Dict[str, Any], signature: str) -> bool:\n        \"\"\"Verify embedding signature\"\"\"\n        expected_signature = self.sign_embedding(embedding_data)\n        return hmac.compare_digest(expected_signature, signature)\n```",
+    "techniques_mitigated": [
+      "SAFE-T1201",
+      "SAFE-T2106",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-32": {
+    "id": "SAFE-M-32",
+    "name": "SAFE-M-32: Continuous Vector Store Monitoring",
+    "description": "Continuous Vector Store Monitoring is a detective control that provides real-time monitoring and alerting for suspicious activities in vector databases. This mitigation detects potential contamination attempts by monitoring embedding patterns, access patterns, and content anomalies.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1805",
+      "SAFE-T1702",
+      "SAFE-T2106"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-33": {
+    "id": "SAFE-M-33",
+    "name": "SAFE-M-33: Training Data Provenance Verification",
+    "description": "Training Data Provenance Verification is a cryptographic control that ensures the authenticity and integrity of training data used in AI model development. This mitigation addresses the critical vulnerability where attackers can inject poisoned data into MCP tool outputs that are subsequently used for training AI models, creating persistent backdoors and vulnerabilities.\n\nBy implementing cryptographic verification of training data sources, transformations, and lineage, organizations can detect and prevent data poisoning attacks that could compromise the integrity of their AI models. This mitigation is particularly crucial for MCP environments where tools are used to generate, collect, and process training data.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T2107",
+      "SAFE-T1001",
+      "SAFE-T1002"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-34": {
+    "id": "SAFE-M-34",
+    "name": "SAFE-M-34: AI Model Integrity Validation",
+    "description": "AI Model Integrity Validation is a cryptographic control that ensures the integrity and authenticity of AI models throughout their lifecycle. This mitigation addresses the critical vulnerability where attackers can poison training data to create compromised models that exhibit malicious behavior when deployed in production.\n\nBy implementing cryptographic validation of model weights, architecture, and behavior, organizations can detect and prevent the deployment of compromised AI models that may have been trained on poisoned data. This mitigation is essential for maintaining trust in AI systems and preventing persistent backdoors from being deployed in production environments.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1201",
+      "SAFE-T2107",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-35": {
+    "id": "SAFE-M-35",
+    "name": "SAFE-M-35: Adversarial Training Data Detection",
+    "description": "Adversarial Training Data Detection is an input validation control that uses machine learning techniques to identify and filter poisoned training data before it can contaminate AI models. This mitigation addresses the critical vulnerability where attackers inject malicious patterns into MCP tool outputs that are subsequently used for training AI models.\n\nBy implementing sophisticated detection algorithms that can identify subtle poisoning patterns, organizations can prevent compromised training data from reaching their AI models. This mitigation is particularly effective against steganographic and sophisticated poisoning attacks that may bypass traditional pattern-based detection methods.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T2107",
+      "SAFE-T1102",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-36": {
+    "id": "SAFE-M-36",
+    "name": "SAFE-M-36: Model Behavior Monitoring",
+    "description": "Model Behavior Monitoring is a detective control that continuously monitors AI model behavior in production to detect anomalies that may indicate the model has been compromised through training data poisoning. This mitigation addresses the critical vulnerability where poisoned models exhibit malicious behavior that may not be immediately apparent during testing.\n\nBy implementing comprehensive monitoring of model inputs, outputs, and behavioral patterns, organizations can detect when models have been compromised and take immediate action to prevent further damage. This mitigation is essential for maintaining trust in AI systems and ensuring they behave as expected in production environments.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T2107",
+      "SAFE-T1102",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-4": {
+    "id": "SAFE-M-4",
+    "name": "SAFE-M-4: Unicode Sanitization and Filtering",
+    "description": "Unicode Sanitization removes or normalizes potentially malicious Unicode characters from tool descriptions and other inputs before they reach LLMs. This includes filtering invisible characters, bidirectional control characters, and characters from Private Use Areas that attackers use to hide malicious instructions.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1402",
+      "SAFE-T1102",
+      "SAFE-T1001",
+      "SAFE-T1401"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-45": {
+    "id": "SAFE-M-45",
+    "name": "SAFE-M-45: Tool Manifest Signing & Server Attestation",
+    "description": "",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1701",
+      "SAFE-T1402",
+      "SAFE-T1102",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-46": {
+    "id": "SAFE-M-46",
+    "name": "SAFE-M-46: Bridge Risk Management",
+    "description": "Bridge Risk Management maintains an updated list of high-risk blockchain bridge protocols and off-ramp services, implementing allowlisting or enhanced review requirements for suspicious cross-chain transfer routes. This mitigation helps prevent the use of compromised, vulnerable, or sanctioned bridge infrastructure for illicit fund transfers.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1915"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-47": {
+    "id": "SAFE-M-47",
+    "name": "SAFE-M-47: Cross-Chain Transaction Graph Analysis",
+    "description": "Cross-Chain Transaction Graph Analysis implements bi-directional tracing capabilities to link blockchain transactions across multiple chains, specifically tracking lock/mint/burn events through bridge protocols. This mitigation reconstructs complete transaction flows across chain boundaries to identify money laundering patterns and fund provenance.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1915"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-48": {
+    "id": "SAFE-M-48",
+    "name": "SAFE-M-48: Custodial Off-Ramp Monitoring",
+    "description": "Custodial Off-Ramp Monitoring prioritizes surveillance of known custodial exchanges and OTC services that are commonly used as exit points following cross-chain laundering operations. This mitigation focuses detection resources on the most likely destinations where criminals convert cryptocurrency to fiat currency.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1915"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-49": {
+    "id": "SAFE-M-49",
+    "name": "SAFE-M-49: Multimedia Content Sanitization",
+    "description": "Multimedia Content Sanitization implements Content Disarm and Reconstruction (CDR) technology to neutralize potential threats embedded within image, audio, and video files before they reach multimodal AI systems. CDR works by deconstructing multimedia files into their component elements, analyzing each component for malicious content, removing or neutralizing threats, and reconstructing the file with only safe elements.\n\nUnlike traditional signature-based scanning that attempts to identify known malware patterns, CDR assumes all files are potentially malicious and removes any elements that could pose a security risk, including steganographic data, executable code, embedded scripts, and suspicious metadata. This approach is particularly effective against zero-day exploits and novel attack vectors that have not yet been catalogued by security vendors.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1110",
+      "SAFE-T1027",
+      "SAFE-T1102"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-5": {
+    "id": "SAFE-M-5",
+    "name": "SAFE-M-5: Content Sanitization",
+    "description": "Content Sanitization filters MCP-related content (including tool descriptions, tool outputs, error messages, and other data) to remove hidden content and instruction patterns using pattern-based detection combined with structural analysis. This mitigation applies sanitization at multiple points in the MCP pipeline to prevent prompt injection from various sources. Note that pattern-based filtering alone is insufficient and should be combined with other mitigations.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1102",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-50": {
+    "id": "SAFE-M-50",
+    "name": "SAFE-M-50: OCR Security Scanning",
+    "description": "OCR Security Scanning employs Optical Character Recognition (OCR) technology to extract and analyze text embedded within images and multimedia content submitted to multimodal AI systems. This mitigation addresses attacks where malicious instructions are visually embedded in images as readable text, exploiting the visual processing capabilities of vision-language models while bypassing text-based security filters.\n\nThe technique works by performing OCR extraction on all image inputs, analyzing the extracted text for malicious patterns (prompt injection attempts, command injections, sensitive data exfiltration requests), and either blocking or sanitizing content based on detected threats. This approach is particularly effective against attacks documented in research papers such as \"Abusing Images and Sounds for Indirect Instruction Injection\" (Greshake et al., 2023) where invisible or subtle text in images manipulates AI behavior.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1110",
+      "SAFE-T1402",
+      "SAFE-T1102"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-51": {
+    "id": "SAFE-M-51",
+    "name": "SAFE-M-51: Embedding Anomaly Detection",
+    "description": "Embedding Anomaly Detection uses machine learning to identify adversarial patterns and anomalies in multimodal embeddings generated from image, audio, and video inputs. This mitigation detects attacks that operate at the embedding level—below the threshold of human perception—where adversarial perturbations manipulate the vector representations used by vision-language models without creating visible or audible changes to the content.\n\nUnlike traditional signature-based detection that analyzes raw file content, this approach examines the mathematical representations (embeddings) that multimodal AI systems use internally. By establishing baseline patterns for normal embeddings and detecting statistical anomalies, this mitigation can identify adversarial content crafted to exploit the geometric properties of embedding spaces, as documented in research on adversarial attacks against vision-language models.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1110",
+      "SAFE-T1027",
+      "SAFE-T1102"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-52": {
+    "id": "SAFE-M-52",
+    "name": "SAFE-M-52: Input Validation Pipeline",
+    "description": "Input Validation Pipeline implements a comprehensive, multi-layered validation framework for multimedia content submitted to multimodal AI systems. This mitigation establishes a defense-in-depth approach by validating file format integrity, checking file size and dimensions, detecting steganographic content, verifying metadata consistency, and enforcing content policies before multimedia reaches the AI processing layer.\n\nUnlike single-point validation checks, this pipeline approach ensures that malicious content must bypass multiple independent validation stages, significantly reducing the attack surface. The pipeline architecture allows for flexible configuration, enabling organizations to balance security requirements with performance needs and customize validation rules based on their specific threat model.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1110",
+      "SAFE-T1027",
+      "SAFE-T1102"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-53": {
+    "id": "SAFE-M-53",
+    "name": "SAFE-M-53: Multimodal Behavioral Monitoring",
+    "description": "Multimodal Behavioral Monitoring continuously observes and analyzes AI system behavior to detect anomalies that may indicate successful prompt injection or manipulation via multimedia inputs. This mitigation monitors the AI's responses, tool invocations, resource access patterns, and decision-making processes following multimedia content processing to identify deviations from expected behavior patterns.\n\nUnlike preventive controls that attempt to block malicious content before processing, behavioral monitoring provides a safety net by detecting when an attack has succeeded in manipulating the AI system. This approach is particularly valuable against novel attack techniques that may bypass input validation, as it focuses on detecting the effects of an attack rather than the attack vector itself.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1110",
+      "SAFE-T1102",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-54": {
+    "id": "SAFE-M-54",
+    "name": "SAFE-M-54: Cross-Modal Correlation Analysis",
+    "description": "Cross-Modal Correlation Analysis examines the relationships and consistency between different modalities (text, image, audio) in multimodal AI interactions to detect potential manipulation attempts. This mitigation identifies suspicious patterns where multimedia inputs correlate with unexpected or malicious AI behavior changes, helping to detect sophisticated attacks that exploit the interaction between different input modalities.\n\nThe technique works by analyzing temporal patterns (timing of multimedia input versus behavioral changes), semantic consistency (alignment between visual/audio content and AI responses), and behavioral correlation (correlation strength between specific multimedia features and suspicious AI actions). By identifying these correlations, security teams can detect attacks that may bypass single-modality security controls.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1110",
+      "SAFE-T1102",
+      "SAFE-T1401"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-6": {
+    "id": "SAFE-M-6",
+    "name": "SAFE-M-6: Tool Registry Verification",
+    "description": "Tool Registry Verification ensures MCP servers are only installed from verified sources with cryptographic signatures, implementing a trusted registry system similar to package managers like npm or Docker Hub.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1004",
+      "SAFE-T1003",
+      "SAFE-T1002"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-7": {
+    "id": "SAFE-M-7",
+    "name": "SAFE-M-7: Content Rendering Parity",
+    "description": "Content Rendering Parity ensures that what users see in the UI exactly matches what is sent to the LLM for all types of content (tool descriptions, tool outputs, error messages, and other data). This prevents attacks that exploit differences between displayed and processed content, including hidden instructions in tool outputs or visual deception techniques.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1402",
+      "SAFE-T1102",
+      "SAFE-T1001",
+      "SAFE-T1401"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-8": {
+    "id": "SAFE-M-8",
+    "name": "SAFE-M-8: Visual Validation",
+    "description": "Visual Validation compares the visual rendering of descriptions with actual content to detect invisible characters, using techniques like screenshot comparison or rendering analysis to identify discrepancies.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1402",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  },
+  "SAFE-M-9": {
+    "id": "SAFE-M-9",
+    "name": "SAFE-M-9: Sandboxed Testing",
+    "description": "Sandboxed Testing involves testing new MCP tools in isolated environments with comprehensive monitoring before production deployment, allowing detection of malicious behavior without risk to production systems.",
+    "implementation": "",
+    "techniques_mitigated": [
+      "SAFE-T1201",
+      "SAFE-T1003",
+      "SAFE-T1001"
+    ],
+    "effectiveness": "HIGH",
+    "enabled": true
+  }
+}

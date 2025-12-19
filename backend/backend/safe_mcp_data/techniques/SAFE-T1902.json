@@ -1,0 +1,86 @@
+{
+  "id": "SAFE-T1902",
+  "name": "SAFE-T1902: Covert Channel in Responses",
+  "tactic": "Command and Control",
+  "description": "Covert Channel in Responses is a sophisticated command-and-control technique where adversaries encode hidden data or instructions within the textual responses returned by MCP servers or AI agents. By exploiting subtle formatting mechanisms—such as whitespace patterns, zero-width Unicode characters, markdown link structures, HTML comments, or ANSI escape codes—attackers can transmit commands, exfiltrate data, or maintain persistent communication channels that bypass standard content inspection and security controls.\n\nWithin MCP ecosystems, this technique is particularly dangerous because tool responses and assistant outputs are routinely displayed to users, logged, or passed between agents without deep syntactic analysis. The covert channel operates \"in plain sight,\" with the visible content appearing benign while invisible or subtly-encoded markers carry malicious payloads. Unlike base64 encoding or encrypted communications that may trigger security alerts, these steganographic methods leverage legitimate text formatting features, making them extremely difficult to detect without specialized analysis.",
+  "examples": [],
+  "detection_guidance": "",
+  "mitigations": [
+    "SAFE-M-22",
+    "SAFE-M-23",
+    "SAFE-M-21",
+    "SAFE-M-4"
+  ],
+  "mitre_mappings": [
+    "T1110",
+    "T1911",
+    "T1402",
+    "T1904",
+    "T1901",
+    "T1902",
+    "T1071",
+    "T1001",
+    "T1132"
+  ],
+  "severity": "MEDIUM",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "in plain sight,",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "1010",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "tool",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "research_assistant",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "response",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1902-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}

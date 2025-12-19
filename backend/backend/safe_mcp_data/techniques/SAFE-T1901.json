@@ -1,0 +1,79 @@
+{
+  "id": "SAFE-T1901",
+  "name": "SAFE-T1901 : Outbound Webhook C2",
+  "tactic": "Command and Control",
+  "description": "Outbound Webhook C2 is a technique where an adversary abuses legitimate outbound HTTP webhook mechanisms to establish covert command-and-control (C2) channels from a Model Context Protocol (MCP) environment.  \nBecause MCP agents and tools routinely use HTTPS for integration with external services (Slack, GitHub, Jira, etc.), malicious webhook calls blend with normal traffic, making detection difficult.  \n\nThis mirrors MITRE ATT&CK technique [T1567.004 – Exfiltration Over Webhook](https://attack.mitre.org/techniques/T1567/004/) and expands it to AI agent ecosystems.\n\n---",
+  "examples": [
+    "**Malicious packages** in npm and PyPI (2025 reports) that exfiltrated developer tokens to Discord webhooks under benign names like “post-install analytics.”",
+    "**KurayStealer** and similar malware families use Slack and Discord webhooks as lightweight C2 channels to send logs and receive tasks.",
+    "In an enterprise MCP setup, a backdoored tool could POST conversation summaries to a remote webhook every hour, evading firewall rules because HTTPS egress is permitted."
+  ],
+  "detection_guidance": "**Network Indicators**\n- Frequent small HTTPS POSTs to rare domains (e.g., `discord.com`, `webhook.site`, dynamic tunnels like `*.ngrok.io`) from MCP hosts not expected to communicate externally.  \n- Unusual SNI or TLS fingerprints in outbound connections.  \n\n**Host Indicators**\n- Config files or .env entries containing webhook-like URLs.  \n- Tools or scripts embedding HTTP client calls without documented purpose.  \n\n**Example SIEM rule (pseudo-Sigma)**  \n```yaml\ntitle: Outbound Webhook C2 Detection\nlogsource: network/proxy\ndetection:\n  selection:\n    url|contains:\n      - \"discord.com/api/webhooks\"\n      - \"hooks.slack.com/services\"\n      - \"webhook.site\"\n      - \"ngrok.io\"\n    method: POST\n  condition: selection\nlevel: medium\n```\n\n---",
+  "mitigations": [],
+  "mitre_mappings": [
+    "T1567.004",
+    "T1901",
+    "T1567"
+  ],
+  "severity": "MEDIUM",
+  "enabled": true,
+  "detection": {
+    "method": "hybrid",
+    "enabled": true,
+    "patterns": [
+      {
+        "type": "substring",
+        "pattern": "discord.com/api/webhooks",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "hooks.slack.com/services",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "webhook.site",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "ngrok.io",
+        "case_sensitive": false,
+        "weight": 0.8
+      },
+      {
+        "type": "substring",
+        "pattern": "https://discord.com/api/webhooks/...",
+        "case_sensitive": false,
+        "weight": 0.8
+      }
+    ],
+    "ml_model": {
+      "enabled": true,
+      "model_id": "safe-mcp/safe-t1901-detector",
+      "threshold": 0.75,
+      "weight": 1.0
+    },
+    "behavioral": {
+      "enabled": true,
+      "rules": [
+        {
+          "feature": "request_rate",
+          "check": "anomaly_detection",
+          "threshold": 10.0
+        }
+      ]
+    },
+    "rules": [
+      {
+        "type": "mcp_structure",
+        "check": "validation",
+        "condition": "is_valid_mcp_message"
+      }
+    ]
+  }
+}
