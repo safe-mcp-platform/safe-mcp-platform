@@ -1,21 +1,41 @@
 """
-SAFE-MCP Validators - Uses same techniques as safe-mcp-platform
+SAFE-MCP Validators - Uses novel detection engine when available
+
+This validator can operate in two modes:
+1. Full Engine Mode: Uses the novel 4-channel detection engine (when available)
+2. Standalone Mode: Uses built-in pattern matching (for SDK-only deployments)
 """
 
 import re
 import json
 from pathlib import Path
 from typing import List, Dict, Optional
+import asyncio
 
 class SAFEMCPValidator:
     """
     Validates inputs against SAFE-MCP threat techniques.
-    Uses the SAME detection logic as safe-mcp-platform for consistency.
+    
+    Modes:
+    - Full Engine: Uses novel 4-channel detection (best accuracy)
+    - Standalone: Uses pattern matching (portable)
     """
     
-    def __init__(self):
+    def __init__(self, use_full_engine: bool = True):
         self.techniques = {}
         self.patterns_cache = {}
+        self.use_full_engine = use_full_engine
+        self.detection_engine = None
+        
+        # Try to load full novel detection engine
+        if use_full_engine:
+            try:
+                from engine.novel_detection_engine import create_novel_detection_engine
+                self.detection_engine = create_novel_detection_engine()
+            except ImportError:
+                # Fall back to pattern-based
+                self.use_full_engine = False
+        
         self._load_techniques()
     
     def _load_techniques(self):
@@ -136,6 +156,9 @@ class SAFEMCPValidator:
         """
         Validate input against SAFE-MCP techniques.
         
+        Uses novel 4-channel detection engine if available,
+        falls back to pattern matching otherwise.
+        
         Returns:
             {
                 "valid": bool,
@@ -146,9 +169,69 @@ class SAFEMCPValidator:
                 "severity": str,
                 "confidence": float,
                 "evidence": list,
-                "parameter": str
+                "parameter": str,
+                "detection_mode": str  # "full_engine" or "patterns"
             }
         """
+        
+        # Try full engine mode first
+        if self.use_full_engine and self.detection_engine:
+            return self._validate_with_engine(input_text, techniques, context)
+        
+        # Fall back to pattern-based validation
+        return self._validate_with_patterns(input_text, techniques, context)
+    
+    def _validate_with_engine(
+        self,
+        input_text: str,
+        techniques: Optional[List[str]],
+        context: Optional[Dict]
+    ) -> Dict:
+        """Validate using novel 4-channel detection engine"""
+        
+        # Create MCP call structure
+        mcp_call = {
+            "tool": context.get("function", "unknown") if context else "unknown",
+            "arguments": {
+                context.get("parameter", "input") if context else "input": input_text
+            },
+            "description": input_text if len(input_text) < 200 else None
+        }
+        
+        # Run detection
+        try:
+            result = asyncio.run(
+                self.detection_engine.detect(
+                    mcp_call,
+                    technique_id=techniques[0] if techniques and len(techniques) > 0 else None
+                )
+            )
+            
+            return {
+                "valid": not result.blocked,
+                "blocked": result.blocked,
+                "technique_id": result.technique_id,
+                "technique_name": result.technique_name,
+                "message": f"Detected {result.technique_name}" if result.blocked else "Validated",
+                "severity": result.technique_id.split("-")[0] if result.technique_id else "UNKNOWN",
+                "confidence": result.confidence,
+                "evidence": result.evidence[:3],  # First 3
+                "parameter": context.get("parameter") if context else None,
+                "detection_mode": "full_engine",
+                "risk_score": result.risk_score,
+                "methods_triggered": result.methods_triggered
+            }
+        except Exception as e:
+            # Fall back to patterns if engine fails
+            return self._validate_with_patterns(input_text, techniques, context)
+    
+    def _validate_with_patterns(
+        self,
+        input_text: str,
+        techniques: Optional[List[str]],
+        context: Optional[Dict]
+    ) -> Dict:
+        """Validate using pattern matching (standalone mode)"""
         
         # Determine which techniques to check
         techniques_to_check = techniques if techniques else list(self.techniques.keys())
@@ -180,14 +263,16 @@ class SAFEMCPValidator:
                     "severity": technique["severity"],
                     "confidence": confidence,
                     "evidence": patterns_matched,
-                    "parameter": context.get("parameter") if context else None
+                    "parameter": context.get("parameter") if context else None,
+                    "detection_mode": "patterns"
                 }
         
         # All checks passed
         return {
             "valid": True,
             "blocked": False,
-            "message": "Input validated successfully"
+            "message": "Input validated successfully",
+            "detection_mode": "patterns"
         }
     
     def validate_all_techniques(self, input_text: str) -> Dict:
