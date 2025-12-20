@@ -44,50 +44,40 @@ SAFE-MCP-Platform is the **world's first production security framework** specifi
 
 ```mermaid
 flowchart TB
-    subgraph CLIENTS["MCP Clients"]
-        C1["Claude Desktop"]
-        C2["Cursor IDE"]
-        C3["Custom Clients"]
+    CLIENTS["MCP Clients<br/>Claude | Cursor | Custom"]
+    
+    GATEWAY["Gateway Proxy :8002<br/>Transparent Interception"]
+    
+    subgraph ENGINE["Novel Detection Engine :8001"]
+        direction LR
+        CH1["Semantic<br/>Analyzer"]
+        CH2["Formal<br/>Verification"]
+        CH3["ML<br/>Transformer"]
+        CH4["Behavioral<br/>Graph"]
     end
     
-    subgraph GATEWAY["MCP Gateway :8002"]
-        GW["Gateway Proxy<br/>stdio/HTTP Conversion<br/>Transparent Interception"]
-    end
+    AGG["Risk Aggregator"]
+    ZK["ZK Proof System"]
     
-    subgraph DETECTION["Novel Detection Engine :8001"]
-        CH1["Channel 1: Semantic<br/>MCP Pattern Analyzer<br/>(NOVEL)"]
-        CH2["Channel 2: Formal<br/>Verification Engine<br/>(NOVEL)"]
-        CH3["Channel 3: ML<br/>MCP Transformer<br/>(NOVEL)"]
-        CH4["Channel 4: Behavioral<br/>Call Graph Analyzer<br/>(NOVEL)"]
-        AGG["Weighted Aggregator<br/>Risk Score Calculation"]
-        ZK["ZK Proof System<br/>(GROUNDBREAKING)"]
-    end
+    INTEL["SAFE-MCP Intelligence<br/>81 Techniques + Mitigations"]
     
-    subgraph DATA["SAFE-MCP Intelligence"]
-        SAFE["81 Techniques<br/>SAFE-MCP Framework"]
-        MIT["Mitigations<br/>SAFE-M Database"]
-    end
+    SERVERS["Protected Servers<br/>filesystem | github | custom"]
     
-    subgraph SERVERS["Protected MCP Servers"]
-        S1["filesystem-server"]
-        S2["github-server"]
-        S3["custom-servers"]
-    end
-    
-    C1 & C2 & C3 --> GW
-    GW --> CH1 & CH2 & CH3 & CH4
-    CH1 & CH2 & CH3 & CH4 --> AGG
+    CLIENTS --> GATEWAY
+    GATEWAY --> ENGINE
+    ENGINE --> AGG
     AGG --> ZK
-    SAFE & MIT -.-> CH1 & CH2 & CH3 & CH4
-    ZK -->|ALLOW| S1 & S2 & S3
-    ZK -->|BLOCK| GW
+    INTEL -.-> ENGINE
+    ZK -->|"✅ ALLOW"| SERVERS
+    ZK -->|"🚫 BLOCK"| GATEWAY
     
     style CLIENTS fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     style GATEWAY fill:#7b1fa2,color:#fff,stroke:#4a148c,stroke-width:3px
-    style DETECTION fill:#ffebee,stroke:#c62828,stroke-width:3px
-    style DATA fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style SERVERS fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style ENGINE fill:#ffebee,stroke:#c62828,stroke-width:3px
+    style AGG fill:#ffd54f,stroke:#f57c00,stroke-width:2px
     style ZK fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:3px
+    style INTEL fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style SERVERS fill:#fff3e0,stroke:#f57c00,stroke-width:2px
 ```
 
 ### Core Innovation: 4-Channel Detection Engine
@@ -97,42 +87,54 @@ Unlike traditional security tools that use generic pattern matching or single ML
 ### Detection Pipeline Flow
 
 ```mermaid
-flowchart LR
-    START["MCP Call"] --> GATEWAY["Gateway<br/>Intercept"]
+flowchart TB
+    START["MCP Call"]
+    GATEWAY["Gateway Intercept"]
     
-    GATEWAY --> DETECT["Detection<br/>Engine"]
+    C1["Channel 1<br/>Semantic Pattern"]
+    C2["Channel 2<br/>Formal Verification"]
+    C3["Channel 3<br/>ML Transformer"]
+    C4["Channel 4<br/>Behavioral Graph"]
     
-    subgraph CHANNELS["4 Novel Detection Channels"]
-        direction TB
-        C1["1️⃣ Semantic<br/>Pattern<br/>Analysis"]
-        C2["2️⃣ Formal<br/>Verification<br/>Proofs"]
-        C3["3️⃣ ML<br/>Transformer<br/>Inference"]
-        C4["4️⃣ Behavioral<br/>Graph<br/>Analysis"]
-    end
+    AGG["Risk Aggregator<br/>Weighted Score"]
+    DECISION{"Risk Score<br/>> 0.70?"}
     
-    DETECT --> C1 & C2 & C3 & C4
+    ZK_BLOCK["Generate ZK Proof<br/>Decision: BLOCK"]
+    ZK_ALLOW["Generate ZK Proof<br/>Decision: ALLOW"]
     
-    C1 & C2 & C3 & C4 --> AGG["Weighted<br/>Aggregation<br/>Risk Score"]
+    BLOCK["🚫 BLOCK + Proof"]
+    ALLOW["✅ ALLOW + Proof"]
     
-    AGG --> DECISION{"Risk > 0.70?"}
+    START --> GATEWAY
+    GATEWAY --> C1
+    GATEWAY --> C2
+    GATEWAY --> C3
+    GATEWAY --> C4
     
-    DECISION -->|YES| ZK_BLOCK["ZK Proof:<br/>BLOCKED"]
-    DECISION -->|NO| ZK_ALLOW["ZK Proof:<br/>ALLOWED"]
+    C1 --> AGG
+    C2 --> AGG
+    C3 --> AGG
+    C4 --> AGG
     
-    ZK_BLOCK --> RESULT_BLOCK["🚫 BLOCK<br/>+ Evidence<br/>+ Proof"]
-    ZK_ALLOW --> RESULT_ALLOW["✅ ALLOW<br/>+ Forward<br/>+ Proof"]
+    AGG --> DECISION
+    DECISION -->|"YES"| ZK_BLOCK
+    DECISION -->|"NO"| ZK_ALLOW
+    
+    ZK_BLOCK --> BLOCK
+    ZK_ALLOW --> ALLOW
     
     style START fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     style GATEWAY fill:#7b1fa2,color:#fff,stroke:#4a148c,stroke-width:2px
-    style CHANNELS fill:#ffebee,stroke:#c62828,stroke-width:3px
     style C1 fill:#ff6b35,color:#fff,stroke:#bf360c,stroke-width:2px
     style C2 fill:#ff6b35,color:#fff,stroke:#bf360c,stroke-width:2px
     style C3 fill:#ff6b35,color:#fff,stroke:#bf360c,stroke-width:2px
     style C4 fill:#ff6b35,color:#fff,stroke:#bf360c,stroke-width:2px
     style AGG fill:#ffd54f,stroke:#f57c00,stroke-width:2px
     style DECISION fill:#90caf9,stroke:#1976d2,stroke-width:3px
-    style ZK_BLOCK fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:3px
-    style ZK_ALLOW fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:3px
+    style ZK_BLOCK fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:2px
+    style ZK_ALLOW fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:2px
+    style BLOCK fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:3px
+    style ALLOW fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:3px
 ```
 
 ---
@@ -329,38 +331,46 @@ valid = verifier.verify(proof)
 
 ```mermaid
 flowchart LR
-    subgraph PROVER["ZK Prover (Detection Engine)"]
-        direction TB
-        P1["Run 4-Channel<br/>Detection"]
-        P2["Generate Witness<br/>(Private Evidence)"]
-        P3["Create Commitment<br/>COM(witness)"]
-        P4["Generate ZK Proof<br/>π"]
-        P1 --> P2 --> P3 --> P4
-    end
+    MCP["MCP Call"]
     
-    MCP["MCP Call"] --> PROVER
+    P1["Run Detection<br/>4 Channels"]
+    P2["Generate Witness<br/>Private Evidence"]
+    P3["Create Commitment<br/>COM witness"]
+    P4["Generate ZK Proof π"]
     
-    P4 --> PROOF["ZK Proof π<br/>━━━━━━━<br/>• Decision: BLOCK/ALLOW<br/>• Commitment<br/>• Public inputs<br/>━━━━━━━<br/>❌ NO evidence revealed"]
+    PROOF["ZK Proof π<br/>Decision + Commitment<br/>NO evidence revealed"]
     
-    PROOF --> VERIFIER
+    V1["Verify Proof π"]
+    V2["Check Public Inputs"]
+    V3["Cryptographic Check"]
+    V4["Accept or Reject"]
     
-    subgraph VERIFIER["ZK Verifier (Gateway)"]
-        direction TB
-        V1["Verify Proof π"]
-        V2["Check Public Inputs"]
-        V3["Cryptographic Check"]
-        V4["Accept/Reject"]
-        V1 --> V2 --> V3 --> V4
-    end
+    ACCEPT["✅ Trust Decision<br/>WITHOUT knowing why"]
+    REJECT["❌ Reject Proof"]
     
-    V4 -->|Valid| ACCEPT["✅ Trust Decision<br/>WITHOUT knowing why"]
-    V4 -->|Invalid| REJECT["❌ Reject Proof"]
+    MCP --> P1
+    P1 --> P2
+    P2 --> P3
+    P3 --> P4
+    P4 --> PROOF
+    PROOF --> V1
+    V1 --> V2
+    V2 --> V3
+    V3 --> V4
+    V4 -->|"Valid"| ACCEPT
+    V4 -->|"Invalid"| REJECT
     
-    style PROVER fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:3px
-    style VERIFIER fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:3px
+    style P1 fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:2px
+    style P2 fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:2px
+    style P3 fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:2px
+    style P4 fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:2px
     style PROOF fill:#ffd54f,stroke:#f57c00,stroke-width:3px
-    style ACCEPT fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:2px
-    style REJECT fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:2px
+    style V1 fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:2px
+    style V2 fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:2px
+    style V3 fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:2px
+    style V4 fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:2px
+    style ACCEPT fill:#4caf50,color:#fff,stroke:#1b5e20,stroke-width:3px
+    style REJECT fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:3px
 ```
 
 ---
