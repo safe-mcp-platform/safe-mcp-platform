@@ -48,13 +48,12 @@ flowchart TB
     
     GATEWAY["Gateway Proxy :8002<br/>Transparent Interception"]
     
-    subgraph ENGINE["Novel Detection Engine :8001"]
-        direction LR
-        CH1["Semantic<br/>Analyzer"]
-        CH2["Formal<br/>Verification"]
-        CH3["ML<br/>Transformer"]
-        CH4["Behavioral<br/>Graph"]
-    end
+    ENGINE_LABEL["Novel Detection Engine :8001"]
+    
+    CH1["Semantic<br/>Analyzer"]
+    CH2["Formal<br/>Verification"]
+    CH3["ML<br/>Transformer"]
+    CH4["Behavioral<br/>Graph"]
     
     AGG["Risk Aggregator"]
     ZK["ZK Proof System"]
@@ -64,16 +63,30 @@ flowchart TB
     SERVERS["Protected Servers<br/>filesystem | github | custom"]
     
     CLIENTS --> GATEWAY
-    GATEWAY --> ENGINE
-    ENGINE --> AGG
+    GATEWAY --> ENGINE_LABEL
+    ENGINE_LABEL --> CH1
+    ENGINE_LABEL --> CH2
+    ENGINE_LABEL --> CH3
+    ENGINE_LABEL --> CH4
+    CH1 --> AGG
+    CH2 --> AGG
+    CH3 --> AGG
+    CH4 --> AGG
     AGG --> ZK
-    INTEL -.-> ENGINE
+    INTEL -.-> CH1
+    INTEL -.-> CH2
+    INTEL -.-> CH3
+    INTEL -.-> CH4
     ZK -->|"✅ ALLOW"| SERVERS
     ZK -->|"🚫 BLOCK"| GATEWAY
     
     style CLIENTS fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     style GATEWAY fill:#7b1fa2,color:#fff,stroke:#4a148c,stroke-width:3px
-    style ENGINE fill:#ffebee,stroke:#c62828,stroke-width:3px
+    style ENGINE_LABEL fill:#ffebee,stroke:#c62828,stroke-width:3px
+    style CH1 fill:#ff6b35,color:#fff,stroke:#bf360c,stroke-width:2px
+    style CH2 fill:#ff6b35,color:#fff,stroke:#bf360c,stroke-width:2px
+    style CH3 fill:#ff6b35,color:#fff,stroke:#bf360c,stroke-width:2px
+    style CH4 fill:#ff6b35,color:#fff,stroke:#bf360c,stroke-width:2px
     style AGG fill:#ffd54f,stroke:#f57c00,stroke-width:2px
     style ZK fill:#f44336,color:#fff,stroke:#b71c1c,stroke-width:3px
     style INTEL fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
