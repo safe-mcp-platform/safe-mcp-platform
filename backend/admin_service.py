@@ -30,7 +30,7 @@ from services.dynamic_detection_engine import detection_engine
 
 # Initialize FastAPI
 app = FastAPI(
-    title="SAFE-MCP Admin Service",
+    title="MCP-Bastion Admin Service",
     description="Management and dashboard API",
     version=settings.app_version
 )
@@ -79,7 +79,7 @@ class CreateApiKeyRequest(BaseModel):
 async def startup_event():
     """Initialize database on startup"""
     print("=" * 60)
-    print(f"🚀 SAFE-MCP Admin Service v{settings.app_version}")
+    print(f"🚀 MCP-Bastion Admin Service v{settings.app_version}")
     print("=" * 60)
     
     # Create tables
@@ -140,7 +140,7 @@ async def health_check():
 async def root():
     """Root endpoint"""
     return {
-        "service": "SAFE-MCP Admin Service",
+        "service": "MCP-Bastion Admin Service",
         "version": settings.app_version,
         "description": "Management and dashboard API",
         "endpoints": {

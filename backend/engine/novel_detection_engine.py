@@ -8,8 +8,8 @@ This is the INTEGRATION LAYER that connects all novel components:
 - Channel 4: Call Graph Behavioral Analyzer  
 - Breakthrough: Zero-Knowledge Proof System
 
-Integration with SAFE-MCP:
-- Loads vulnerabilities from SAFE-MCP framework
+Integration with MCP Threat Intelligence:
+- Loads vulnerabilities from threat taxonomy
 - Maps techniques to detection channels
 - Applies mitigations from SAFE-M
 
@@ -89,8 +89,8 @@ class NovelDetectionEngine:
     4. Graph-based behavioral analysis
     5. Zero-knowledge proofs
     
-    Integration with SAFE-MCP:
-    - Loads all 81 techniques from SAFE-MCP framework
+    Integration with MCP Threat Intelligence:
+    - Loads all 81 techniques from threat taxonomy
     - Maps techniques to appropriate detection channels
     - Applies SAFE-M mitigations
     
@@ -115,12 +115,12 @@ class NovelDetectionEngine:
         self.use_zk_proofs = use_zk_proofs
         self.device = device
         
-        # Load SAFE-MCP data (Constraint #1: Source from SAFE-MCP)
+        # Load threat intelligence data (Constraint #1: Source from threat taxonomy)
         self.techniques = self._load_safe_mcp_techniques()
         self.mitigations = self._load_safe_mcp_mitigations()
         
         logger.info(
-            "Loading SAFE-MCP data",
+            "Loading MCP threat intelligence data",
             techniques=len(self.techniques),
             mitigations=len(self.mitigations)
         )
@@ -142,7 +142,7 @@ class NovelDetectionEngine:
     
     def _load_safe_mcp_techniques(self) -> Dict[str, Dict]:
         """
-        Load SAFE-MCP techniques (Constraint #1).
+        Load MCP attack techniques (Constraint #1).
         
         Returns dict mapping technique IDs to technique definitions.
         """
@@ -151,7 +151,7 @@ class NovelDetectionEngine:
         
         if not techniques_dir.exists():
             logger.warning(
-                "SAFE-MCP techniques directory not found",
+                "MCP techniques directory not found",
                 path=str(techniques_dir)
             )
             return techniques
@@ -175,7 +175,7 @@ class NovelDetectionEngine:
         mitigations_file = self.safe_mcp_data_dir / "mitigations.json"
         
         if not mitigations_file.exists():
-            logger.warning("SAFE-MCP mitigations file not found")
+            logger.warning("MCP mitigations file not found")
             return {}
         
         try:

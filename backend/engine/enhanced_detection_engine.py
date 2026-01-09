@@ -234,7 +234,7 @@ class EnhancedDetectionEngine:
         
         self.enable_zk_proofs = enable_zk_proofs
         
-        # Load SAFE-MCP data
+        # Load threat intelligence data
         self.safe_mcp_data_path = safe_mcp_data_path or Path(__file__).parent.parent / "safe_mcp_data"
         self.techniques = self._load_techniques()
         self.mitigations = self._load_mitigations()
@@ -264,7 +264,7 @@ class EnhancedDetectionEngine:
         )
     
     def _load_techniques(self) -> Dict:
-        """Load SAFE-MCP techniques"""
+        """Load MCP attack techniques"""
         try:
             techniques_file = self.safe_mcp_data_path / "techniques.json"
             if techniques_file.exists():
@@ -275,7 +275,7 @@ class EnhancedDetectionEngine:
         return {}
     
     def _load_mitigations(self) -> Dict:
-        """Load SAFE-MCP mitigations"""
+        """Load MCP attack mitigations"""
         try:
             mitigations_file = self.safe_mcp_data_path / "mitigations.json"
             if mitigations_file.exists():

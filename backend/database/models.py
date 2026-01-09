@@ -1,5 +1,5 @@
 """
-Database Models for SAFE-MCP-Platform
+Database Models for MCP-Bastion-Security
 Production-grade SQLAlchemy models
 """
 

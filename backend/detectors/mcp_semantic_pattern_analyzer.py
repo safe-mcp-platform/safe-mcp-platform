@@ -75,7 +75,7 @@ class MCPSemanticPatternAnalyzer:
     
     def __init__(self, safe_mcp_patterns: Optional[Dict] = None):
         """
-        Initialize with SAFE-MCP patterns.
+        Initialize with attack patterns.
         
         Args:
             safe_mcp_patterns: Dictionary of SAFE-MCP technique patterns
@@ -176,7 +176,7 @@ class MCPSemanticPatternAnalyzer:
         # Step 3: Analyze argument semantics (NOVEL)
         arg_risk = self.analyze_argument_semantics(mcp_call, features)
         
-        # Step 4: Check SAFE-MCP patterns
+        # Step 4: Check attack patterns
         safe_mcp_risk = self.check_safe_mcp_patterns(mcp_call, features)
         
         # Step 5: Aggregate risks with semantic weighting
@@ -365,7 +365,7 @@ class MCPSemanticPatternAnalyzer:
         return min(risk, 1.0)
     
     def check_safe_mcp_patterns(self, mcp_call: MCPCall, features: Dict) -> float:
-        """Check against SAFE-MCP technique patterns"""
+        """Check against attack technique patterns"""
         risk = 0.0
         
         # Check prompt injection patterns

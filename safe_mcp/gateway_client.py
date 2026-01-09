@@ -1,6 +1,6 @@
 """
-SAFE-MCP Gateway Client
-Stdio client that connects Claude Desktop to SAFE-MCP Gateway
+MCP-Bastion Gateway Client
+Stdio client that connects Claude Desktop to MCP-Bastion Gateway
 """
 
 import sys
@@ -16,10 +16,10 @@ logger = structlog.get_logger()
 
 class GatewayClient:
     """
-    MCP stdio client that proxies to SAFE-MCP Gateway
+    MCP stdio client that proxies to MCP-Bastion Gateway
     
     This runs as an MCP server from Claude Desktop's perspective,
-    but actually forwards all requests to the SAFE-MCP Gateway via HTTP.
+    but actually forwards all requests to the MCP-Bastion Gateway via HTTP.
     """
     
     def __init__(self):

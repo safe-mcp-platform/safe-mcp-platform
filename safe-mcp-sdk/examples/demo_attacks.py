@@ -41,7 +41,7 @@ async def process_input(data: str):
 
 async def demo():
     print("="*70)
-    print("🎬 SAFE-MCP-SDK LIVE DEMO")
+    print("🎬 MCP-BASTION-SDK LIVE DEMO")
     print("="*70)
     print()
     

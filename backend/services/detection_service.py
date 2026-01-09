@@ -36,7 +36,7 @@ logger = structlog.get_logger()
 
 # Create FastAPI app
 app = FastAPI(
-    title="SAFE-MCP Detection Service",
+    title="MCP-Bastion Detection Service",
     version=settings.APP_VERSION,
     description="High-performance MCP threat detection API"
 )

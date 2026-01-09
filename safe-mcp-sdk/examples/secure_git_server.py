@@ -1,5 +1,5 @@
 """
-SECURE Git MCP Server (With safe-mcp-sdk)
+SECURE Git MCP Server (With mcp-bastion-sdk)
 
 Same functionality as insecure_git_server.py, but protected with @secure decorator.
 Just add @secure() - that's it! One line per tool.
@@ -30,7 +30,7 @@ class MockServer:
 server = MockServer("secure-git-server")
 
 @server.tool()
-@secure()  # ← ONE LINE! Now protected against all 36 SAFE-MCP techniques
+@secure()  # ← ONE LINE! Now protected against all 36 MCP attack techniques
 async def git_clone(repo_url: str, target_dir: str):
     """
     Clone a git repository
@@ -79,8 +79,8 @@ async def read_config(filename: str):
         return f.read()
 
 if __name__ == "__main__":
-    print("✅ SECURE Git MCP Server (powered by safe-mcp-sdk)")
-    print("Protected against all 36 SAFE-MCP techniques!")
+    print("✅ SECURE Git MCP Server (powered by mcp-bastion-sdk)")
+    print("Protected against all 36 MCP attack techniques!")
     print("")
     print("Integration: Just 1 line per tool:")
     print("  @secure()  ← That's it!")

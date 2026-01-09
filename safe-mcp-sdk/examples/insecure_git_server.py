@@ -1,5 +1,5 @@
 """
-INSECURE Git MCP Server (Before safe-mcp-sdk)
+INSECURE Git MCP Server (Before mcp-bastion-sdk)
 
 This demonstrates common vulnerabilities in MCP servers.
 DO NOT USE THIS IN PRODUCTION!

@@ -17,11 +17,11 @@ Instead, please report them via one of the following methods:
 
 ### 1. GitHub Security Advisories (Preferred)
 
-Report directly through our [GitHub Security Advisories](https://github.com/safe-mcp-platform/safe-mcp-platform/security/advisories/new) page.
+Report directly through our [GitHub Security Advisories](https://github.com/mcp-bastion-security/mcp-bastion-security/security/advisories/new) page.
 
 ### 2. Email
 
-Send an email to **security@safe-mcp-platform.io** with:
+Send an email to ** ** with:
 
 - Type of vulnerability
 - Full paths of source file(s) related to the vulnerability
@@ -67,8 +67,8 @@ For highly sensitive disclosures, use our PGP key:
 ## Security Advisories
 
 View published security advisories:
-- [GitHub Security Advisories](https://github.com/safe-mcp-platform/safe-mcp-platform/security/advisories)
-- [Website](https://safe-mcp-platform.io/security)
+- [GitHub Security Advisories](https://github.com/mcp-bastion-security/mcp-bastion-security/security/advisories)
+- [Website]( )
 
 ## Vulnerability Categories
 
@@ -110,7 +110,7 @@ The following are **not** considered security vulnerabilities:
 
 ## Security Best Practices
 
-When using SAFE-MCP-Platform:
+When using MCP-Bastion-Security:
 
 1. **Keep Updated**: Always use the latest version
 2. **Secure Credentials**: Use strong API keys, rotate regularly
@@ -122,7 +122,7 @@ When using SAFE-MCP-Platform:
 
 ## Security Features
 
-SAFE-MCP-Platform includes:
+MCP-Bastion-Security includes:
 
 - ✅ **4-Layer Detection**: Pattern, Rules, ML, Behavioral
 - ✅ **Audit Logging**: Complete audit trail of all actions
@@ -160,9 +160,9 @@ Security researchers who responsibly disclose vulnerabilities:
 
 ## Contact
 
-- **Security Team**: security@safe-mcp-platform.io
-- **General Inquiries**: hello@safe-mcp-platform.io
-- **Website**: https://safe-mcp-platform.io/security
+- **Security Team**: 
+- **General Inquiries**: 
+- **Website**: 
 
 ## PGP Key Fingerprint
 
@@ -172,5 +172,5 @@ Security researchers who responsibly disclose vulnerabilities:
 
 ---
 
-**Thank you for helping keep SAFE-MCP-Platform and our users safe!** 🛡️
+**Thank you for helping keep MCP-Bastion-Security and our users safe!** 🛡️
 

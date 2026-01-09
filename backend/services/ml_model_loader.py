@@ -222,7 +222,7 @@ class MLModelLoader:
         print("🗑️  Unloaded all models")
 
 
-# Recommended pre-trained models for SAFE-MCP
+# Recommended pre-trained models for MCP-Bastion
 
 RECOMMENDED_MODELS = {
     "prompt_injection": [

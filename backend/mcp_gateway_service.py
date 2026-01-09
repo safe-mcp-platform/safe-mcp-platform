@@ -32,7 +32,7 @@ security = HTTPBearer(auto_error=False)
 
 # Create FastAPI app
 app = FastAPI(
-    title="SAFE-MCP Gateway",
+    title="MCP-Bastion Gateway",
     description="Transparent MCP security proxy with real-time threat detection",
     version=settings.app_version
 )
@@ -295,7 +295,7 @@ async def mcp_endpoint(
 async def root():
     """Root endpoint"""
     return {
-        "service": "SAFE-MCP Gateway",
+        "service": "MCP-Bastion Gateway",
         "version": settings.app_version,
         "description": "Transparent MCP security proxy",
         "endpoints": {
@@ -308,7 +308,7 @@ async def root():
 def start_gateway_service():
     """Start the MCP Gateway service"""
     print("=" * 60)
-    print(f"🛡️  SAFE-MCP Gateway Service v{settings.app_version}")
+    print(f"🛡️  MCP-Bastion Gateway Service v{settings.app_version}")
     print("=" * 60)
     print(f"Port: {settings.gateway_port}")
     print(f"Workers: {settings.gateway_uvicorn_workers}")

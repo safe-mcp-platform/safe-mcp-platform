@@ -1,6 +1,6 @@
 ---
 name: 🎯 Claim a Technique
-about: Claim a SAFE-MCP technique to implement
+about: Claim an MCP attack technique to implement
 title: '[TECHNIQUE] SAFE-TXXXX: Technique Name'
 labels: 'help-wanted, good-first-issue'
 assignees: ''
@@ -9,7 +9,7 @@ assignees: ''
 ## 🎯 Technique Information
 
 **Technique ID:** SAFE-TXXXX  
-**Technique Name:** [Name from SAFE-MCP Framework]  
+**Technique Name:** [Name from MCP Attack Taxonomy]  
 **Tactic:** [MITRE ATT&CK Tactic]  
 **Severity:** CRITICAL / HIGH / MEDIUM / LOW  
 
@@ -143,7 +143,7 @@ Choose which level you want to contribute:
 ## 💡 Tips for Success
 
 ### Finding Patterns
-- Review the SAFE-MCP technique documentation
+- Review the MCP attack technique documentation
 - Search for real-world examples on GitHub
 - Check security advisories and CVEs
 - Ask in Discord if you need help!
@@ -162,8 +162,8 @@ python tools/benchmark.py TXXXX
 ```
 
 ### Getting Help
-- 💬 **Discord**: [#contributors channel](https://discord.gg/safe-mcp)
-- 📧 **Email**: contributors@safe-mcp-platform.io
+- 💬 **Discord**: [#contributors channel]( )
+- 📧 **Email**: 
 - 💭 **Ask in comments**: We're here to help!
 
 ---
@@ -199,5 +199,5 @@ Comment below to claim this technique and join the mission to secure MCP! 💪�
 
 ---
 
-**Questions?** Drop them in the comments or join our [Discord](https://discord.gg/safe-mcp)!
+**Questions?** Drop them in the comments or join our [Discord]( )!
 

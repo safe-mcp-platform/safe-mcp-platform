@@ -1,5 +1,5 @@
 """
-safe-mcp-sdk: Security SDK for MCP Server Developers
+mcp-bastion-sdk: Security SDK for MCP Server Developers
 
 Makes it dead simple to build secure MCP servers using SAFE-MCP techniques.
 Just add @secure() decorator to your tools!

@@ -1,5 +1,5 @@
 """
-LIVE DEMO - See SAFE-MCP Detection in Action!
+LIVE DEMO - See MCP-Bastion Detection in Action!
 
 This script demonstrates real-time detection with visual output.
 Run this to see EXACTLY how the system behaves!
@@ -124,7 +124,7 @@ async def demo_attack_detection(attack_name, mcp_message, expected_risk):
 
 async def main():
     """Run all demos"""
-    print_header("🛡️  SAFE-MCP PLATFORM - LIVE DEMO")
+    print_header("🛡️  MCP-BASTION-SECURITY - LIVE DEMO")
     
     print(f"{Colors.BOLD}This demo shows EXACTLY how the system works!{Colors.END}\n")
     print("Platform Status:")
@@ -216,7 +216,7 @@ async def main():
     print("✅ Automatic blocking of high-risk requests")
     print("✅ Benign requests allowed through")
     
-    print(f"\n{Colors.BOLD}This is how SAFE-MCP protects AI agents!{Colors.END}\n")
+    print(f"\n{Colors.BOLD}This is how MCP-Bastion protects AI agents!{Colors.END}\n")
     
     print(f"\n{Colors.CYAN}{'='*70}{Colors.END}")
     print(f"{Colors.BOLD}Next Steps:{Colors.END}")

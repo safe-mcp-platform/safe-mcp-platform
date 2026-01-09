@@ -1,11 +1,11 @@
 # Attack Simulations
 
-This directory contains test cases for various SAFE-MCP attack techniques.
+This directory contains test cases for various MCP attack techniques.
 
 ## Running Simulations
 
 ```bash
-cd /Users/saurabh_sharmila_nysa_mac/Desktop/Saurabh_OSS/safe-mcp-platform
+cd /Users/saurabh_sharmila_nysa_mac/Desktop/Saurabh_OSS/mcp-bastion-security
 
 # Run all simulations
 python3 tests/run_simulations.py

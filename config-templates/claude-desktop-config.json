@@ -1,12 +1,12 @@
 {
   "mcpServers": {
-    "safe-mcp-gateway": {
+    "mcp-bastion-gateway": {
       "command": "python",
       "args": ["-m", "safe_mcp.gateway_client"],
       "env": {
         "SAFE_MCP_GATEWAY_URL": "http://localhost:5002",
         "SAFE_MCP_API_KEY": "YOUR_API_KEY_HERE",
-        "UPSTREAM_CONFIG": "~/.safe-mcp/servers.json"
+        "UPSTREAM_CONFIG": "~/.mcp-bastion/servers.json"
       }
     }
   }

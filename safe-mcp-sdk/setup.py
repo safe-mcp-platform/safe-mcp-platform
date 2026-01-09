@@ -1,5 +1,5 @@
 """
-Setup configuration for safe-mcp-sdk
+Setup configuration for mcp-bastion-sdk
 """
 
 from setuptools import setup, find_packages
@@ -8,13 +8,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="safe-mcp-sdk",
+    name="mcp-bastion-sdk",
     version="1.0.0",
-    author="SAFE-MCP Platform Team",
+    author="MCP-Bastion Team",
     description="Security SDK for MCP Server Developers - 1-line integration",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/safe-mcp-platform/safe-mcp-platform",
+    url="https://github.com/mcp-bastion-security/mcp-bastion-security",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",

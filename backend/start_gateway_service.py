@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Start Gateway Service
-Entry point for SAFE-MCP Gateway (MCP Multiplexer)
+Entry point for MCP-Bastion Gateway (MCP Multiplexer)
 """
 
 import sys

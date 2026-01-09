@@ -1,5 +1,5 @@
 """
-SAFE-MCP Client
+MCP-Bastion Client
 Direct API client for detection service
 """
 
@@ -11,7 +11,7 @@ logger = structlog.get_logger()
 
 
 class SafeMCPClient:
-    """Client for SAFE-MCP Detection API"""
+    """Client for MCP-Bastion Detection API"""
     
     def __init__(
         self,

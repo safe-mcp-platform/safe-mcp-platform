@@ -1,16 +1,16 @@
-# safe-mcp CLI
+# mcp-bastion CLI
 
 **Professional command-line interface for securing Model Context Protocol deployments**
 
-[![PyPI version](https://img.shields.io/pypi/v/safe-mcp.svg)](https://pypi.org/project/safe-mcp/)
-[![Python versions](https://img.shields.io/pypi/pyversions/safe-mcp.svg)](https://pypi.org/project/safe-mcp/)
-[![License](https://img.shields.io/pypi/l/safe-mcp.svg)](https://github.com/safe-mcp-platform/safe-mcp-platform/blob/main/LICENSE)
+[![PyPI version](https://img.shields.io/pypi/v/mcp-bastion.svg)](https://pypi.org/project/mcp-bastion/)
+[![Python versions](https://img.shields.io/pypi/pyversions/mcp-bastion.svg)](https://pypi.org/project/mcp-bastion/)
+[![License](https://img.shields.io/pypi/l/mcp-bastion.svg)](https://github.com/mcp-bastion-security/mcp-bastion-security/blob/main/LICENSE)
 
 ---
 
-## 🎯 What is safe-mcp?
+## 🎯 What is mcp-bastion?
 
-`safe-mcp` is a zero-configuration CLI tool that transparently adds enterprise-grade security to your MCP deployments. It automatically discovers your MCP clients (Claude Desktop, Cursor, Windsurf, VS Code) and wraps them with 4-channel threat detection.
+`mcp-bastion` is a zero-configuration CLI tool that transparently adds enterprise-grade security to your MCP deployments. It automatically discovers your MCP clients (Claude Desktop, Cursor, Windsurf, VS Code) and wraps them with 4-channel threat detection.
 
 ### Key Features
 
@@ -29,23 +29,23 @@
 
 ```bash
 # Install from PyPI
-pip install safe-mcp
+pip install mcp-bastion
 
 # Or use uvx (no installation)
-uvx safe-mcp@latest scan
+uvx mcp-bastion@latest scan
 ```
 
 ### Basic Usage (3 Steps)
 
 ```bash
 # 1. Discover your MCP clients
-safe-mcp scan
+mcp-bastion scan
 
 # 2. Enable protection
-safe-mcp protect cursor
+mcp-bastion protect cursor
 
 # 3. Check status
-safe-mcp status
+mcp-bastion status
 ```
 
 **That's it!** Your Cursor IDE is now protected against:
@@ -59,14 +59,14 @@ safe-mcp status
 
 ## 📖 Commands
 
-### `safe-mcp scan`
+### `mcp-bastion scan`
 
 Discover all MCP configurations on your system.
 
 ```bash
-safe-mcp scan                    # Quick scan
-safe-mcp scan --details          # Show server details
-safe-mcp scan --verbose          # Verbose output
+mcp-bastion scan                    # Quick scan
+mcp-bastion scan --details          # Show server details
+mcp-bastion scan --verbose          # Verbose output
 ```
 
 **Example Output:**
@@ -84,20 +84,20 @@ safe-mcp scan --verbose          # Verbose output
 
 ---
 
-### `safe-mcp protect`
+### `mcp-bastion protect`
 
 Enable runtime protection for MCP client(s).
 
 ```bash
-safe-mcp protect cursor          # Protect Cursor IDE
-safe-mcp protect claude          # Protect Claude Desktop
-safe-mcp protect --all           # Protect all clients
-safe-mcp protect --config ~/.custom/mcp.json  # Custom config
+mcp-bastion protect cursor          # Protect Cursor IDE
+mcp-bastion protect claude          # Protect Claude Desktop
+mcp-bastion protect --all           # Protect all clients
+mcp-bastion protect --config ~/.custom/mcp.json  # Custom config
 ```
 
 **What Happens:**
-1. Creates backup of your config (`.safe-mcp-backup`)
-2. Wraps MCP servers with safe-mcp-gateway
+1. Creates backup of your config (`.mcp-bastion-backup`)
+2. Wraps MCP servers with mcp-bastion-gateway
 3. All MCP traffic now flows through 4-channel detection
 4. Threats are automatically blocked
 
@@ -114,29 +114,29 @@ safe-mcp protect --config ~/.custom/mcp.json  # Custom config
 
 ---
 
-### `safe-mcp unprotect`
+### `mcp-bastion unprotect`
 
 Disable runtime protection (restore original configs).
 
 ```bash
-safe-mcp unprotect cursor        # Unprotect Cursor IDE
-safe-mcp unprotect --all         # Unprotect all clients
-safe-mcp unprotect --config ~/.custom/mcp.json  # Custom config
+mcp-bastion unprotect cursor        # Unprotect Cursor IDE
+mcp-bastion unprotect --all         # Unprotect all clients
+mcp-bastion unprotect --config ~/.custom/mcp.json  # Custom config
 ```
 
 **What Happens:**
 1. Restores original config from backup
-2. Removes safe-mcp-gateway wrapper
+2. Removes mcp-bastion-gateway wrapper
 3. MCP traffic flows directly (unprotected)
 
 ---
 
-### `safe-mcp status`
+### `mcp-bastion status`
 
 Show protection status for all MCP clients.
 
 ```bash
-safe-mcp status
+mcp-bastion status
 ```
 
 **Example Output:**
@@ -157,26 +157,26 @@ Summary: 1/2 clients protected
 
 ---
 
-### `safe-mcp logs`
+### `mcp-bastion logs`
 
 View security logs (coming soon).
 
 ```bash
-safe-mcp logs                    # Recent logs
-safe-mcp logs --tail 100         # Last 100 logs
-safe-mcp logs --follow           # Real-time streaming
-safe-mcp logs --filter "blocked" # Filter by keyword
+mcp-bastion logs                    # Recent logs
+mcp-bastion logs --tail 100         # Last 100 logs
+mcp-bastion logs --follow           # Real-time streaming
+mcp-bastion logs --filter "blocked" # Filter by keyword
 ```
 
 ---
 
-### `safe-mcp dashboard`
+### `mcp-bastion dashboard`
 
 Launch the admin dashboard in your browser.
 
 ```bash
-safe-mcp dashboard               # Open http://localhost:8000
-safe-mcp dashboard --url http://production:8000
+mcp-bastion dashboard               # Open http://localhost:8000
+mcp-bastion dashboard --url http://production:8000
 ```
 
 ---
@@ -196,7 +196,7 @@ safe-mcp dashboard --url http://production:8000
 
 ```
 ┌─────────┐    ┌──────────────────┐    ┌───────────┐    ┌────────────┐
-│ Cursor  │───▶│ safe-mcp-gateway │───▶│ MCP Server│───▶│ Filesystem │
+│ Cursor  │───▶│ mcp-bastion-gateway │───▶│ MCP Server│───▶│ Filesystem │
 └─────────┘    └──────────────────┘    └───────────┘    └────────────┘
                          │
                          │ 4-Channel Detection
@@ -239,7 +239,7 @@ safe-mcp dashboard --url http://production:8000
 
 ## 🆚 Comparison with mcp-scan
 
-| Feature | mcp-scan (Invariant) | safe-mcp (This Tool) |
+| Feature | mcp-scan (Invariant) | mcp-bastion (This Tool) |
 |---------|---------------------|---------------------|
 | **Auto-Discovery** | ✅ | ✅ |
 | **CLI Wrapper** | ✅ | ✅ |
@@ -250,7 +250,7 @@ safe-mcp dashboard --url http://production:8000
 | **Policy Engine** | ⚠️ Basic guardrails | ✅ Sophisticated rules |
 | **Enterprise Features** | ⚠️ Limited | ✅ Full compliance |
 
-**Result:** safe-mcp = mcp-scan's ease of use + superior security
+**Result:** mcp-bastion = mcp-scan's ease of use + superior security
 
 ---
 
@@ -259,22 +259,22 @@ safe-mcp dashboard --url http://production:8000
 ### Option 1: PyPI (Recommended)
 
 ```bash
-pip install safe-mcp
+pip install mcp-bastion
 ```
 
 ### Option 2: uvx (No Installation)
 
 ```bash
 # Run without installing
-uvx safe-mcp@latest scan
-uvx safe-mcp@latest protect cursor
+uvx mcp-bastion@latest scan
+uvx mcp-bastion@latest protect cursor
 ```
 
 ### Option 3: From Source
 
 ```bash
-git clone https://github.com/safe-mcp-platform/safe-mcp-platform.git
-cd safe-mcp-platform/safe-mcp-cli
+git clone https://github.com/mcp-bastion-security/mcp-bastion-security.git
+cd mcp-bastion-security/mcp-bastion-cli
 pip install -e .
 ```
 
@@ -286,7 +286,7 @@ pip install -e .
 
 ```bash
 # Pull Docker images
-cd safe-mcp-platform
+cd mcp-bastion-security
 docker-compose pull
 
 # Start services
@@ -312,7 +312,7 @@ Ensure you have at least one MCP client configured:
 
 ```bash
 # Protect your IDE
-safe-mcp protect cursor
+mcp-bastion protect cursor
 
 # Continue coding normally
 # All MCP calls are now automatically secured
@@ -322,23 +322,23 @@ safe-mcp protect cursor
 
 ```bash
 # Protect all clients on employee machines
-safe-mcp protect --all
+mcp-bastion protect --all
 
 # Monitor via admin dashboard
-safe-mcp dashboard
+mcp-bastion dashboard
 ```
 
 ### 3. CI/CD Pipeline
 
 ```bash
 # In your CI script
-safe-mcp protect --config ./ci/mcp.json --no-blocking
+mcp-bastion protect --config ./ci/mcp.json --no-blocking
 
 # Run tests (logs threats without blocking)
 pytest
 
 # Review security logs
-safe-mcp logs --filter "blocked"
+mcp-bastion logs --filter "blocked"
 ```
 
 ---
@@ -357,19 +357,19 @@ MIT License - see [LICENSE](../LICENSE) for details.
 
 ## 🔗 Links
 
-- **Main Repository**: https://github.com/safe-mcp-platform/safe-mcp-platform
-- **Documentation**: https://github.com/safe-mcp-platform/safe-mcp-platform#readme
-- **Bug Reports**: https://github.com/safe-mcp-platform/safe-mcp-platform/issues
-- **Demos**: https://github.com/safe-mcp-platform/demos-safe-mcp-platform
+- **Main Repository**: https://github.com/mcp-bastion-security/mcp-bastion-security
+- **Documentation**: https://github.com/mcp-bastion-security/mcp-bastion-security#readme
+- **Bug Reports**: https://github.com/mcp-bastion-security/mcp-bastion-security/issues
+- **Demos**: https://github.com/mcp-bastion-security/demos-mcp-bastion-security
 
 ---
 
 ## 💬 Support
 
-- **Issues**: [GitHub Issues](https://github.com/safe-mcp-platform/safe-mcp-platform/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/safe-mcp-platform/safe-mcp-platform/discussions)
+- **Issues**: [GitHub Issues](https://github.com/mcp-bastion-security/mcp-bastion-security/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/mcp-bastion-security/mcp-bastion-security/discussions)
 
 ---
 
-**Made with ❤️ by the SAFE-MCP Platform Team**
+**Made with ❤️ by the MCP-Bastion Team**
 

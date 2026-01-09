@@ -1,4 +1,4 @@
-# SAFE-MCP-Platform Production Dependencies
+# MCP-Bastion-Security Production Dependencies
 # Python 3.9+
 
 # Web Framework

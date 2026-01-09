@@ -22,7 +22,7 @@ logger = structlog.get_logger()
 
 # Create FastAPI app
 app = FastAPI(
-    title="SAFE-MCP Gateway",
+    title="MCP-Bastion Gateway",
     version=settings.APP_VERSION,
     description="MCP multiplexer with security detection"
 )
@@ -38,12 +38,12 @@ async def startup_event():
     """Initialize gateway on startup"""
     global upstream_manager
     
-    logger.info("Starting SAFE-MCP Gateway", port=settings.GATEWAY_PORT)
+    logger.info("Starting MCP-Bastion Gateway", port=settings.GATEWAY_PORT)
     
     # Load upstream server config
     upstream_config = os.getenv(
         "UPSTREAM_CONFIG",
-        os.path.expanduser("~/.safe-mcp/servers.json")
+        os.path.expanduser("~/.mcp-bastion/servers.json")
     )
     
     upstream_manager = UpstreamServerManager(upstream_config)
@@ -77,7 +77,7 @@ async def startup_event():
     
     # Pre-load detection engine
     get_detection_engine()
-    logger.info("SAFE-MCP Gateway ready")
+    logger.info("MCP-Bastion Gateway ready")
 
 
 @app.on_event("shutdown")

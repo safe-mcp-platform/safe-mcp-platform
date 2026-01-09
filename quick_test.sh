@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Quick Test Script for SAFE-MCP-Platform
+# Quick Test Script for MCP-Bastion-Security
 # Run this before pushing to GitHub
 
 set -e
@@ -12,14 +12,14 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}╔════════════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║  🧪 SAFE-MCP-PLATFORM QUICK TEST              ║${NC}"
+echo -e "${BLUE}║  🧪 MCP-BASTION-SECURITY QUICK TEST              ║${NC}"
 echo -e "${BLUE}║  Testing core functionality before push       ║${NC}"
 echo -e "${BLUE}╚════════════════════════════════════════════════╝${NC}"
 echo ""
 
 # Test 1: SDK Demo
 echo -e "${YELLOW}[1/5]${NC} Testing SDK (Most Critical)..."
-cd safe-mcp-sdk/examples
+cd mcp-bastion-sdk/examples
 if python demo_attacks.py 2>&1 | grep -q "Attack BLOCKED"; then
     echo -e "${GREEN}✅ SDK Test PASSED${NC} - Attacks are blocked"
 else

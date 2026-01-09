@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://safe-mcp-platform.io/schemas/technique.json",
+  "$id": "https://mcp-bastion-security.io/schemas/technique.json",
   
   "id": "SAFE-T1102",
   "name": "Prompt Injection via Tool Descriptions",

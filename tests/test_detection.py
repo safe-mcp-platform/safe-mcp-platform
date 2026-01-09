@@ -128,7 +128,7 @@ async def test_benign_request():
 async def main():
     """Run all tests"""
     print("=" * 60)
-    print("🧪 SAFE-MCP Detection Engine Test Suite")
+    print("🧪 MCP-Bastion Detection Engine Test Suite")
     print("=" * 60)
     print(f"Techniques loaded: {len(detection_engine.techniques)}")
     print(f"Mitigations loaded: {len(detection_engine.mitigations)}")

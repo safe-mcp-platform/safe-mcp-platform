@@ -1,10 +1,10 @@
-# Contributing to SAFE-MCP-Platform
+# Contributing to MCP-Bastion-Security
 
 **Welcome! 🎉** We're building the world's first comprehensive MCP security framework, and we need your help!
 
 ## 🎯 Project Vision
 
-SAFE-MCP-Platform aims to operationalize all 81 attack techniques documented in the [SAFE-MCP framework](https://github.com/safe-mcp/safe-mcp). We've built the complete framework architecture and fully implemented the **Top 2 most critical techniques** (covering 80% of real-world attacks). Now we need the community to help cover the remaining 79 techniques.
+MCP-Bastion-Security aims to operationalize all 81 attack techniques documented in the [SAFE-MCP framework](https://github.com/safe-mcp/safe-mcp). We've built the complete framework architecture and fully implemented the **Top 2 most critical techniques** (covering 80% of real-world attacks). Now we need the community to help cover the remaining 79 techniques.
 
 **Why contribute?**
 - 🔒 Secure the emerging MCP ecosystem
@@ -19,7 +19,7 @@ SAFE-MCP-Platform aims to operationalize all 81 attack techniques documented in 
 
 ### 1. Find a Technique to Implement
 
-Browse [available techniques](https://github.com/safe-mcp-platform/safe-mcp-platform/issues?label=help-wanted) and claim one by commenting on the issue.
+Browse [available techniques](https://github.com/mcp-bastion-security/mcp-bastion-security/issues?label=help-wanted) and claim one by commenting on the issue.
 
 ### 2. Choose Your Contribution Level
 
@@ -50,9 +50,9 @@ We provide complete templates and reference examples (T1102, T1105) to make it e
 #### 1. Fork & Clone
 
 ```bash
-git fork https://github.com/safe-mcp-platform/safe-mcp-platform
-git clone https://github.com/YOUR-USERNAME/safe-mcp-platform
-cd safe-mcp-platform
+git fork https://github.com/mcp-bastion-security/mcp-bastion-security
+git clone https://github.com/YOUR-USERNAME/mcp-bastion-security
+cd mcp-bastion-security
 ```
 
 #### 2. Create Pattern File
@@ -848,11 +848,11 @@ tags:
 - security
 - mcp
 - tool-poisoning
-- safe-mcp
+- mcp-bastion
 license: mit
 ---
 
-# SAFE-MCP T1001: Tool Poisoning Detector
+# T1001: Tool Poisoning Detector
 
 Fine-tuned DistilBERT model for detecting malicious MCP tool descriptions.
 
@@ -862,7 +862,7 @@ Fine-tuned DistilBERT model for detecting malicious MCP tool descriptions.
 - **Task:** Binary classification (benign vs malicious)
 - **Technique:** SAFE-T1001 (Tool Poisoning)
 - **Training Data:** 1000 examples (50% malicious, 50% benign)
-- **Framework:** SAFE-MCP-Platform
+- **Framework:** MCP-Bastion-Security
 
 ## Performance
 
@@ -906,10 +906,10 @@ print(f"Malicious: {is_malicious}, Confidence: {confidence:.2f}")
 
 \```bibtex
 @misc{Yergattikar2025safemcp,
-  title={SAFE-MCP-Platform: Production-Ready Security for Model Context Protocol},
+  title={MCP-Bastion-Security: Production-Ready Security for Model Context Protocol},
   author={Yergattikar, Saurabh},
   year={2025},
-  url={https://github.com/safe-mcp-platform/safe-mcp-platform}
+  url={https://github.com/mcp-bastion-security/mcp-bastion-security}
 }
 \```
 ```
@@ -958,7 +958,7 @@ Before submitting your PR, ensure:
 ### For All Levels:
 - [ ] Forked repository
 - [ ] Created feature branch (`git checkout -b add-T1XXX`)
-- [ ] Technique ID matches SAFE-MCP framework
+- [ ] Technique ID matches MCP attack taxonomy
 - [ ] JSON config validated (use `python validate_config.py`)
 - [ ] Examples provided (3+ malicious, 3+ benign)
 - [ ] Tests added and passing (`pytest tests/test_T1XXX.py`)
@@ -994,7 +994,7 @@ Before submitting your PR, ensure:
 All contributors are publicly recognized:
 
 1. **GitHub**: Listed in CONTRIBUTORS.md
-2. **Website**: Profile on safe-mcp-platform.io
+2. **Website**: Profile on mcp-bastion-security.io
 3. **Paper**: Acknowledged in research publications
 4. **Badges**: Contributor level badges
 5. **Metrics**: Your technique's impact tracked
@@ -1030,7 +1030,7 @@ We've fully implemented these techniques as examples:
 
 ### Documentation
 
-- [SAFE-MCP Framework](https://github.com/safe-mcp/safe-mcp) - Official threat documentation
+- [MCP attack technique research](https://github.com/safe-mcp/safe-mcp) - Official threat documentation
 - [Architecture Guide](ARCHITECTURE.md) - How the detection engine works
 - [API Reference](API_REFERENCE.md) - Integration documentation
 - [Testing Guide](TESTING.md) - How to write good tests
@@ -1047,13 +1047,13 @@ We've fully implemented these techniques as examples:
 
 ### Questions?
 
-- 💬 **Discord**: [Join our community](https://discord.gg/safe-mcp)
-- 📧 **Email**: contributors@safe-mcp-platform.io
-- 📝 **Discussions**: [GitHub Discussions](https://github.com/safe-mcp-platform/safe-mcp-platform/discussions)
+- 💬 **Discord**: [Join our community]( )
+- 📧 **Email**: 
+- 📝 **Discussions**: [GitHub Discussions](https://github.com/mcp-bastion-security/mcp-bastion-security/discussions)
 
 ### Found a Bug?
 
-[Open an issue](https://github.com/safe-mcp-platform/safe-mcp-platform/issues/new?template=bug_report.md)
+[Open an issue](https://github.com/mcp-bastion-security/mcp-bastion-security/issues/new?template=bug_report.md)
 
 ### Need Guidance?
 
@@ -1075,6 +1075,6 @@ Your contributions help secure the MCP ecosystem for everyone. Together, we're b
 
 ---
 
-**Maintained by:** Saurabh Yergattikar ([@safe-mcp-platform](https://github.com/safe-mcp-platform))  
-**Project:** [SAFE-MCP-Platform](https://github.com/safe-mcp-platform/safe-mcp-platform)  
+**Maintained by:** Saurabh Yergattikar ([@mcp-bastion-security](https://github.com/mcp-bastion-security))  
+**Project:** [MCP-Bastion-Security](https://github.com/mcp-bastion-security/mcp-bastion-security)  
 **License:** MIT

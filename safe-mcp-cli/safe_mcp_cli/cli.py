@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SAFE-MCP CLI - Professional Command-Line Interface
+MCP-Bastion CLI - Professional Command-Line Interface
 
 Professional CLI for protecting MCP deployments with transparent runtime security.
 
@@ -13,13 +13,13 @@ Commands:
 - dashboard: Launch admin dashboard
 
 Example Usage:
-    safe-mcp scan                    # Discover all MCP clients
-    safe-mcp protect cursor          # Protect Cursor IDE
-    safe-mcp protect --all           # Protect all clients
-    safe-mcp unprotect cursor        # Remove protection
-    safe-mcp status                  # Check what's protected
-    safe-mcp logs --tail 50          # View recent logs
-    safe-mcp dashboard               # Open admin UI
+    mcp-bastion scan                    # Discover all MCP clients
+    mcp-bastion protect cursor          # Protect Cursor IDE
+    mcp-bastion protect --all           # Protect all clients
+    mcp-bastion unprotect cursor        # Remove protection
+    mcp-bastion status                  # Check what's protected
+    mcp-bastion logs --tail 50          # View recent logs
+    mcp-bastion dashboard               # Open admin UI
 """
 
 import argparse
@@ -66,10 +66,10 @@ def cmd_scan(args: argparse.Namespace) -> int:
             Panel(
                 f"[green]✅ Found {len(discovered)} MCP configuration(s)[/green]\n\n"
                 f"[dim]To enable protection:[/dim]\n"
-                f"  [cyan]safe-mcp protect <client-name>[/cyan]\n"
-                f"  [cyan]safe-mcp protect --all[/cyan]\n\n"
+                f"  [cyan]mcp-bastion protect <client-name>[/cyan]\n"
+                f"  [cyan]mcp-bastion protect --all[/cyan]\n\n"
                 f"[dim]Example:[/dim]\n"
-                f"  [cyan]safe-mcp protect cursor[/cyan]",
+                f"  [cyan]mcp-bastion protect cursor[/cyan]",
                 title="📋 Next Steps",
                 border_style="cyan",
             )
@@ -131,7 +131,7 @@ def cmd_protect(args: argparse.Namespace) -> int:
 
         if not config:
             console.print(f"[red]✗[/red] Client '{args.client}' not found\n")
-            console.print("[dim]Run 'safe-mcp scan' to see available clients[/dim]\n")
+            console.print("[dim]Run 'mcp-bastion scan' to see available clients[/dim]\n")
             return 1
 
         return 0 if wrap_client_config(config.config_path, injection_config, verbose=not args.quiet) else 1
@@ -180,7 +180,7 @@ def cmd_unprotect(args: argparse.Namespace) -> int:
 
         if not config:
             console.print(f"[red]✗[/red] Client '{args.client}' not found\n")
-            console.print("[dim]Run 'safe-mcp scan' to see available clients[/dim]\n")
+            console.print("[dim]Run 'mcp-bastion scan' to see available clients[/dim]\n")
             return 1
 
         return 0 if unwrap_client_config(config.config_path, verbose=not args.quiet) else 1
@@ -247,8 +247,8 @@ def cmd_status(args: argparse.Namespace) -> int:
             Panel(
                 "[yellow]⚠️  Some clients are unprotected[/yellow]\n\n"
                 "[dim]To enable protection:[/dim]\n"
-                "  [cyan]safe-mcp protect <client-name>[/cyan]\n"
-                "  [cyan]safe-mcp protect --all[/cyan]",
+                "  [cyan]mcp-bastion protect <client-name>[/cyan]\n"
+                "  [cyan]mcp-bastion protect --all[/cyan]",
                 title="💡 Recommendation",
                 border_style="yellow",
             )
@@ -301,15 +301,15 @@ def cmd_dashboard(args: argparse.Namespace) -> int:
 def main() -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        prog="safe-mcp",
+        prog="mcp-bastion",
         description="Professional CLI for securing Model Context Protocol deployments",
-        epilog="For more information, visit: https://github.com/safe-mcp-platform/safe-mcp-platform",
+        epilog="For more information, visit: https://github.com/mcp-bastion-security/mcp-bastion-security",
     )
 
     parser.add_argument(
         "--version",
         action="version",
-        version="safe-mcp 1.0.0",
+        version="mcp-bastion 1.0.0",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
@@ -365,10 +365,10 @@ def main() -> int:
         parser.print_help()
         console.print(
             "\n[bold cyan]Quick Start:[/bold cyan]\n"
-            "  1. [cyan]safe-mcp scan[/cyan]                 # Discover MCP clients\n"
-            "  2. [cyan]safe-mcp protect cursor[/cyan]       # Enable protection\n"
-            "  3. [cyan]safe-mcp status[/cyan]               # Check status\n"
-            "  4. [cyan]safe-mcp dashboard[/cyan]            # Open admin UI\n"
+            "  1. [cyan]mcp-bastion scan[/cyan]                 # Discover MCP clients\n"
+            "  2. [cyan]mcp-bastion protect cursor[/cyan]       # Enable protection\n"
+            "  3. [cyan]mcp-bastion status[/cyan]               # Check status\n"
+            "  4. [cyan]mcp-bastion dashboard[/cyan]            # Open admin UI\n"
         )
         return 1
 

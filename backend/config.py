@@ -1,5 +1,5 @@
 """
-SAFE-MCP-Platform Configuration
+MCP-Bastion-Security Configuration
 Production-grade configuration management
 """
 
@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     """Application settings with environment variable support."""
     
     # Application
-    APP_NAME: str = "SAFE-MCP-Platform"
+    APP_NAME: str = "MCP-Bastion-Security"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = Field(default=False, env="DEBUG")
     ENVIRONMENT: str = Field(default="production", env="ENVIRONMENT")

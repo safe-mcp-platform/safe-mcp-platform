@@ -46,7 +46,7 @@ logger = structlog.get_logger()
 
 # Create FastAPI app
 app = FastAPI(
-    title="SAFE-MCP Admin Service",
+    title="MCP-Bastion Admin Service",
     version=settings.APP_VERSION,
     description="Admin and dashboard API"
 )

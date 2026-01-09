@@ -1,1 +1,1 @@
-"""SAFE-MCP-Platform Backend Package."""
+"""MCP-Bastion-Security Backend Package."""

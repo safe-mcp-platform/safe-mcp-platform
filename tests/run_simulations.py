@@ -82,7 +82,7 @@ class SimulationRunner:
     async def run_all(self, simulations_dir: Path):
         """Run all simulations in directory"""
         print("=" * 60)
-        print("🧪 SAFE-MCP Attack Simulation Suite")
+        print("🧪 MCP-Bastion Attack Simulation Suite")
         print("=" * 60)
         print(f"Techniques loaded: {len(detection_engine.techniques)}")
         print(f"Simulations directory: {simulations_dir}")

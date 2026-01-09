@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-Get SAFE-MCP-Platform running in 5 minutes.
+Get MCP-Bastion-Security running in 5 minutes.
 
 ### Prerequisites
 
@@ -13,8 +13,8 @@ Get SAFE-MCP-Platform running in 5 minutes.
 ### Installation
 
 ```bash
-git clone https://github.com/safe-mcp-platform/safe-mcp-platform
-cd safe-mcp-platform
+git clone https://github.com/mcp-bastion-security/mcp-bastion-security
+cd mcp-bastion-security
 cp .env.example .env
 docker-compose up -d
 ```
@@ -42,9 +42,9 @@ docker-compose up -d
 ### Kubernetes (Production)
 
 ```bash
-helm repo add safe-mcp https://charts.safe-mcp.org
-helm install safe-mcp safe-mcp/safe-mcp-platform \
-  --namespace safe-mcp \
+helm repo add mcp-bastion https://charts.mcp-bastion-security.org
+helm install mcp-bastion mcp-bastion/mcp-bastion-security \
+  --namespace mcp-bastion \
   --set gateway.replicas=3 \
   --set detection.replicas=5
 ```
@@ -55,7 +55,7 @@ helm install safe-mcp safe-mcp/safe-mcp-platform \
 <summary><b>AWS (ECS + RDS)</b></summary>
 
 ```bash
-aws ecs create-cluster --cluster-name safe-mcp-cluster
+aws ecs create-cluster --cluster-name mcp-bastion-cluster
 # See deployment/aws/ for complete Terraform templates
 ```
 
@@ -65,8 +65,8 @@ aws ecs create-cluster --cluster-name safe-mcp-cluster
 <summary><b>GCP (Cloud Run + Cloud SQL)</b></summary>
 
 ```bash
-gcloud run deploy safe-mcp-admin \
-  --image gcr.io/<PROJECT>/safe-mcp-admin:latest \
+gcloud run deploy mcp-bastion-admin \
+  --image gcr.io/<PROJECT>/mcp-bastion-admin:latest \
   --platform managed \
   --region us-central1
 ```
@@ -78,8 +78,8 @@ gcloud run deploy safe-mcp-admin \
 
 ```bash
 az container create \
-  --resource-group safe-mcp \
-  --name safe-mcp-platform \
+  --resource-group mcp-bastion \
+  --name mcp-bastion-security \
   --image safemcp/platform:latest
 ```
 
@@ -107,7 +107,7 @@ HUGGINGFACE_TOKEN=<YOUR_TOKEN>
 ENABLE_AUDIT_LOG=true
 ```
 
-Full configuration reference: [docs/configuration.md](https://github.com/safe-mcp-platform/safe-mcp-platform/blob/main/docs/configuration.md)
+Full configuration reference: [docs/configuration.md](https://github.com/mcp-bastion-security/mcp-bastion-security/blob/main/docs/configuration.md)
 
 ---
 
@@ -155,7 +155,7 @@ or `%APPDATA%\Claude\claude_desktop_config.json` (Windows)
 {
   "mcpServers": {
     "filesystem": {
-      "command": "safe-mcp-wrap",
+      "command": "mcp-bastion-wrap",
       "args": [
         "npx", "-y", "@modelcontextprotocol/server-filesystem", "/Users/you/Documents"
       ],
@@ -169,7 +169,7 @@ or `%APPDATA%\Claude\claude_desktop_config.json` (Windows)
 
 **Install wrapper:**
 ```bash
-pip install safe-mcp-client
+pip install mcp-bastion-client
 ```
 
 ---
@@ -182,7 +182,7 @@ pip install safe-mcp-client
 {
   "mcp.servers": {
     "safe-gateway": {
-      "command": "safe-mcp-gateway",
+      "command": "mcp-bastion-gateway",
       "args": ["--config", "./mcp-servers.json"],
       "env": {
         "SAFE_MCP_API_KEY": "sk-safe-mcp-YOUR-KEY-HERE",
@@ -244,10 +244,10 @@ def dangerous_operation(path: str):
     return execute_something(path)
 
 if __name__ == "__main__":
-    # Wrap with SAFE-MCP protection
+    # Wrap with MCP-Bastion protection
     protected = SafeMCPWrapper(
         app,
-        api_key="sk-safe-mcp-YOUR-KEY",
+        api_key="sk-mcp-bastion-YOUR-KEY",
         gateway_url="http://localhost:8001",  # Detection API
         techniques=["SAFE-T1102", "SAFE-T1105"]  # Check specific techniques
     )
@@ -279,9 +279,9 @@ curl -X POST http://localhost:5000/api/v1/tenants \
 **2. Distribute API Keys:**
 
 Each team gets their own API key:
-- `sk-safe-mcp-team-engineering-xxx`
-- `sk-safe-mcp-team-product-xxx`
-- `sk-safe-mcp-team-research-xxx`
+- `sk-mcp-bastion-team-engineering-xxx`
+- `sk-mcp-bastion-team-product-xxx`
+- `sk-mcp-bastion-team-research-xxx`
 
 **3. Configure per Team:**
 
@@ -309,7 +309,7 @@ sso:
   provider: okta  # or azure-ad, google-workspace
   client_id: <CLIENT_ID>
   client_secret: <CLIENT_SECRET>
-  redirect_uri: https://safe-mcp.company.com/auth/callback
+  redirect_uri: https://mcp-bastion.company.com/auth/callback
   
   # Auto-provision tenants
   auto_provision: true
@@ -535,10 +535,10 @@ open http://localhost:3000
 
 ## 🆘 Support
 
-- **Documentation**: https://docs.safe-mcp.org
-- **GitHub Issues**: https://github.com/safe-mcp-platform/safe-mcp-platform/issues
-- **Community Slack**: https://safe-mcp.slack.com
-- **Email**: support@safe-mcp.org
+- **Documentation**: https://docs.mcp-bastion.org
+- **GitHub Issues**: https://github.com/mcp-bastion-security/mcp-bastion-security/issues
+- **Community Slack**: 
+- **Email**: 
 
 ---
 

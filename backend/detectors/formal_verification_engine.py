@@ -173,7 +173,7 @@ class FormalVerificationEngine:
         
         Args:
             mcp_call: MCP call to verify
-            technique_id: Optional SAFE-MCP technique to check
+            technique_id: Optional attack technique ID to check
             
         Returns:
             VerificationResult with proof or counterexample

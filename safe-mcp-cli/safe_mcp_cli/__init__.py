@@ -22,10 +22,10 @@ Example Usage:
     wrap_client_config(configs[0].config_path)
 
 CLI Usage:
-    safe-mcp scan                    # Discover MCP clients
-    safe-mcp protect cursor          # Enable protection
-    safe-mcp status                  # Check status
-    safe-mcp dashboard               # Open admin UI
+    mcp-bastion scan                    # Discover MCP clients
+    mcp-bastion protect cursor          # Enable protection
+    mcp-bastion status                  # Check status
+    mcp-bastion dashboard               # Open admin UI
 """
 
 __version__ = "1.0.0"

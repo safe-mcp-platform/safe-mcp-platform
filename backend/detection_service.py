@@ -24,7 +24,7 @@ from services.mcp_protocol_parser import MCPProtocolParser
 
 # Initialize FastAPI
 app = FastAPI(
-    title="SAFE-MCP Detection Service",
+    title="MCP-Bastion Detection Service",
     description="High-concurrency detection API",
     version=settings.app_version
 )
@@ -62,7 +62,7 @@ class BatchDetectionRequest(BaseModel):
 async def startup_event():
     """Initialize on startup"""
     print("=" * 60)
-    print(f"🔍 SAFE-MCP Detection Service v{settings.app_version}")
+    print(f"🔍 MCP-Bastion Detection Service v{settings.app_version}")
     print("=" * 60)
     print(f"📊 Techniques loaded: {len(detection_engine.techniques)}")
     print(f"🛡️  Mitigations loaded: {len(detection_engine.mitigations)}")
@@ -99,7 +99,7 @@ async def health_check():
 async def root():
     """Root endpoint"""
     return {
-        "service": "SAFE-MCP Detection Service",
+        "service": "MCP-Bastion Detection Service",
         "version": settings.app_version,
         "description": "High-concurrency MCP threat detection",
         "endpoints": {

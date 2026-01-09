@@ -1,4 +1,4 @@
-# 🛡️ safe-mcp-sdk
+# 🛡️ mcp-bastion-sdk
 
 **Secure your MCP servers in 1 line. Seriously.**
 
@@ -10,7 +10,7 @@ async def my_tool(input: str):
     return process(input)
 ```
 
-Automatic protection against **36 SAFE-MCP attack techniques**.
+Automatic protection against **36 documented MCP attack techniques**.
 
 ---
 
@@ -20,7 +20,7 @@ Automatic protection against **36 SAFE-MCP attack techniques**.
 
 ```bash
 # Install from local directory (for now)
-cd safe-mcp-sdk
+cd mcp-bastion-sdk
 pip install -e .
 
 # Or copy safe_mcp_sdk/ folder to your project
@@ -32,7 +32,7 @@ pip install -e .
 from safe_mcp_sdk import secure
 
 @server.tool()
-@secure()  # Protects against all 36 SAFE-MCP techniques
+@secure()  # Protects against all 36 MCP attack techniques
 async def git_commit(message: str):
     os.system(f"git commit -m '{message}'")
     return {"status": "committed"}
@@ -40,7 +40,7 @@ async def git_commit(message: str):
 
 ### Attacks Blocked Automatically
 
-| Attack Type | SAFE-MCP ID | Status |
+| Attack Type | Technique ID | Status |
 |-------------|-------------|--------|
 | Command Injection | SAFE-T1103 | ✅ Blocked |
 | Path Traversal | SAFE-T1105 | ✅ Blocked |
@@ -115,7 +115,7 @@ async def experimental_feature(input: str):
 Run the included demo:
 
 ```bash
-cd safe-mcp-sdk/examples
+cd mcp-bastion-sdk/examples
 python demo_attacks.py
 ```
 
@@ -133,21 +133,21 @@ python demo_attacks.py
 
 ```
 1. @secure decorator intercepts function call
-2. Validates all string inputs against SAFE-MCP techniques
+2. Validates all string inputs against documented attack techniques
 3. If attack detected: raises SAFEMCPException (blocks execution)
 4. If safe: allows function to execute normally
 ```
 
-**Same detection logic as safe-mcp-platform!**
+**Same detection logic as mcp-bastion-security!**
 
 ---
 
-## 🔗 Integration with safe-mcp-platform
+## 🔗 Integration with mcp-bastion-security
 
 | Layer | Tool | Protection |
 |-------|------|------------|
-| **Development** | safe-mcp-sdk | Catches vulnerabilities while coding |
-| **Runtime** | safe-mcp-platform | Catches attacks in production |
+| **Development** | mcp-bastion-sdk | Catches vulnerabilities while coding |
+| **Runtime** | mcp-bastion-security | Catches attacks in production |
 
 **Defense in depth = Two layers of protection!**
 
@@ -186,9 +186,9 @@ MIT
 
 ## 🤝 Contributing
 
-Part of the safe-mcp-platform project.
+Part of the mcp-bastion-security project.
 
-Built on the SAFE-MCP threat intelligence framework.
+Built on comprehensive MCP threat intelligence research.
 
 ---
 

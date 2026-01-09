@@ -1,5 +1,5 @@
 """
-SAFE-MCP Client Package Setup
+MCP-Bastion Client Package Setup
 """
 
 from setuptools import setup, find_packages
@@ -8,14 +8,14 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="safe-mcp-client",
+    name="mcp-bastion-client",
     version="1.0.0",
-    author="SAFE-MCP Team",
-    author_email="security@safe-mcp.org",
-    description="Python client for SAFE-MCP Platform - Security for Model Context Protocol",
+    author="MCP-Bastion Team",
+    author_email=" ",
+    description="Python client for MCP-Bastion-Security - Security for Model Context Protocol",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/safe-mcp-platform/safe-mcp-platform",
+    url="https://github.com/mcp-bastion-security/mcp-bastion-security",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -35,14 +35,14 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "safe-mcp-gateway=safe_mcp.gateway_client:main",
+            "mcp-bastion-gateway=safe_mcp.gateway_client:main",
         ],
     },
     keywords="security mcp ai llm safety guardrails",
     project_urls={
-        "Bug Reports": "https://github.com/safe-mcp-platform/safe-mcp-platform/issues",
-        "Source": "https://github.com/safe-mcp-platform/safe-mcp-platform",
-        "Documentation": "https://docs.safe-mcp.org",
+        "Bug Reports": "https://github.com/mcp-bastion-security/mcp-bastion-security/issues",
+        "Source": "https://github.com/mcp-bastion-security/mcp-bastion-security",
+        "Documentation": "https://docs.mcp-bastion.org",
     },
 )
 

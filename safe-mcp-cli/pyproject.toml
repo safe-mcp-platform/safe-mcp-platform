@@ -1,12 +1,12 @@
 [project]
-name = "safe-mcp"
+name = "mcp-bastion"
 version = "1.0.0"
 description = "Professional CLI for securing Model Context Protocol deployments with 4-channel threat detection"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 authors = [
-    {name = "SAFE-MCP Platform Team"}
+    {name = "MCP-Bastion Team"}
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -53,17 +53,17 @@ server = [
 ]
 
 all = [
-    "safe-mcp[dev,server]",
+    "mcp-bastion[dev,server]",
 ]
 
 [project.urls]
-Homepage = "https://github.com/safe-mcp-platform/safe-mcp-platform"
-Documentation = "https://github.com/safe-mcp-platform/safe-mcp-platform#readme"
-Repository = "https://github.com/safe-mcp-platform/safe-mcp-platform"
-"Bug Tracker" = "https://github.com/safe-mcp-platform/safe-mcp-platform/issues"
+Homepage = "https://github.com/mcp-bastion-security/mcp-bastion-security"
+Documentation = "https://github.com/mcp-bastion-security/mcp-bastion-security#readme"
+Repository = "https://github.com/mcp-bastion-security/mcp-bastion-security"
+"Bug Tracker" = "https://github.com/mcp-bastion-security/mcp-bastion-security/issues"
 
 [project.scripts]
-safe-mcp = "safe_mcp_cli.cli:main"
+mcp-bastion = "safe_mcp_cli.cli:main"
 
 [build-system]
 requires = ["hatchling"]

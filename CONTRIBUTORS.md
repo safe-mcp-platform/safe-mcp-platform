@@ -13,8 +13,8 @@ This project is only possible because of the amazing security researchers, engin
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/safe-mcp-platform">
-        <img src="https://github.com/safe-mcp-platform.png" width="100px;" alt="Saurabh Yergattikar"/>
+      <a href="https://github.com/mcp-bastion-security">
+        <img src="https://github.com/mcp-bastion-security.png" width="100px;" alt="Saurabh Yergattikar"/>
         <br />
         <sub><b>Saurabh Yergattikar</b></sub>
       </a>
@@ -245,7 +245,7 @@ Companies that contributed techniques for their use cases:
 - 🟡 **Level 2**: Add validation rules (6-10 hours)
 - 🔴 **Level 3**: Add ML model (2-4 weeks)
 
-[View available techniques →](https://github.com/safe-mcp-platform/safe-mcp-platform/issues?label=help-wanted)
+[View available techniques →](https://github.com/mcp-bastion-security/mcp-bastion-security/issues?label=help-wanted)
 
 ---
 
@@ -253,7 +253,7 @@ Companies that contributed techniques for their use cases:
 
 ### Organizations
 
-- **Linux Foundation OpenSSF** - Hosting the SAFE-MCP framework
+- **Security Research Community** - MCP attack technique research
 - **OpenID Foundation** - Supporting MCP security research
 - **Anthropic** - Creating the MCP protocol
 - **HuggingFace** - Hosting our ML models
@@ -326,9 +326,9 @@ Be among the first 10 contributors and get:
 
 Want to contribute but need guidance?
 
-- 💬 **Discord**: [#contributors channel](https://discord.gg/safe-mcp)
-- 📧 **Email**: contributors@safe-mcp-platform.io
-- 🐦 **Twitter**: [@safemcpplatform](https://twitter.com/safemcpplatform)
+- 💬 **Discord**: [#contributors channel]( )
+- 📧 **Email**: 
+- 🐦 **Twitter**: [@safemcpplatform]( )
 
 ---
 
@@ -338,7 +338,7 @@ Want to contribute but need guidance?
 
 **Want to see your name here? [Start contributing today!](CONTRIBUTING.md)** 🚀
 
-Made with ❤️ by the SAFE-MCP-Platform community
+Made with ❤️ by the MCP-Bastion-Security community
 
 </div>
 

@@ -17,7 +17,7 @@ logger = structlog.get_logger()
 
 # Create FastAPI app
 app = FastAPI(
-    title="SAFE-MCP Gateway",
+    title="MCP-Bastion Gateway",
     version=settings.APP_VERSION,
     description="Transparent MCP proxy with security detection"
 )

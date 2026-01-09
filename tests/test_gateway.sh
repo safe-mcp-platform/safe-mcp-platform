@@ -1,9 +1,9 @@
 #!/bin/bash
-# SAFE-MCP Gateway Integration Test
+# MCP-Bastion Gateway Integration Test
 
 set -e
 
-echo "🧪 SAFE-MCP Gateway Integration Test"
+echo "🧪 MCP-Bastion Gateway Integration Test"
 echo "====================================="
 echo ""
 

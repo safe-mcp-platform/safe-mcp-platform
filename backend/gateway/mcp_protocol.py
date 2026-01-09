@@ -157,7 +157,7 @@ class MCPProtocol:
         return {
             "protocolVersion": "2024-11-05",
             "serverInfo": {
-                "name": "safe-mcp-gateway",
+                "name": "mcp-bastion-gateway",
                 "version": "1.0.0"
             },
             "capabilities": {
@@ -203,7 +203,7 @@ class MCPErrorCode:
     UNKNOWN_ERROR_CODE = -32001
     REQUEST_TIMEOUT = -32000
     
-    # SAFE-MCP security errors
+    # MCP-Bastion security errors
     SECURITY_VIOLATION = -32000
     TECHNIQUE_BLOCKED = -32100
     SUSPICIOUS_PATTERN = -32101

@@ -257,9 +257,9 @@ class ArgumentRelationAttention(nn.Module):
 
 class SafeMCPTechniqueHead(nn.Module):
     """
-    Multi-label classification head for SAFE-MCP techniques.
+    Multi-label classification head for MCP attack techniques.
     
-    Predicts which of the 81 SAFE-MCP techniques are present.
+    Predicts which of the 81 attack techniques are present.
     """
     
     def __init__(self, config: MCPTransformerConfig):
@@ -270,7 +270,7 @@ class SafeMCPTechniqueHead(nn.Module):
     
     def forward(self, pooled_output: torch.Tensor) -> torch.Tensor:
         """
-        Classify SAFE-MCP techniques.
+        Classify MCP attack techniques.
         
         Args:
             pooled_output: [batch, hidden_size]

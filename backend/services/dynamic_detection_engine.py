@@ -1,5 +1,5 @@
 """
-Dynamic Detection Engine - The Heart of SAFE-MCP Platform
+Dynamic Detection Engine - The Heart of MCP-Bastion Platform
 
 This engine dynamically loads and executes SAFE-T techniques from configuration files.
 NO HARDCODED DETECTION LOGIC - Everything is data-driven!

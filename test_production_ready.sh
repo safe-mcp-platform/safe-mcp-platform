@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# SAFE-MCP-Platform Production Readiness Test
+# MCP-Bastion-Security Production Readiness Test
 # This script validates the entire platform is ready for GitHub release
 
 set -e
 
-echo "🧪 SAFE-MCP-Platform Production Readiness Test"
+echo "🧪 MCP-Bastion-Security Production Readiness Test"
 echo "=============================================="
 echo ""
 
@@ -98,17 +98,17 @@ fi
 echo ""
 
 # Test 4: Check SDK
-echo "🛡️  Test 4: SAFE-MCP-SDK"
+echo "🛡️  Test 4: MCP-BASTION-SDK"
 echo "----------------------------"
 
 sdk_files=(
-    "safe-mcp-sdk/safe_mcp_sdk/__init__.py"
-    "safe-mcp-sdk/safe_mcp_sdk/decorators.py"
-    "safe-mcp-sdk/safe_mcp_sdk/validators.py"
-    "safe-mcp-sdk/safe_mcp_sdk/exceptions.py"
-    "safe-mcp-sdk/examples/demo_attacks.py"
-    "safe-mcp-sdk/setup.py"
-    "safe-mcp-sdk/README.md"
+    "mcp-bastion-sdk/safe_mcp_sdk/__init__.py"
+    "mcp-bastion-sdk/safe_mcp_sdk/decorators.py"
+    "mcp-bastion-sdk/safe_mcp_sdk/validators.py"
+    "mcp-bastion-sdk/safe_mcp_sdk/exceptions.py"
+    "mcp-bastion-sdk/examples/demo_attacks.py"
+    "mcp-bastion-sdk/setup.py"
+    "mcp-bastion-sdk/README.md"
 )
 
 for file in "${sdk_files[@]}"; do
@@ -122,7 +122,7 @@ done
 # Test SDK imports
 echo ""
 echo "Testing SDK imports..."
-cd safe-mcp-sdk
+cd mcp-bastion-sdk
 if python3 -c "from safe_mcp_sdk import secure, SAFEMCPException; print('Imports OK')" 2>/dev/null; then
     test_pass "SDK imports work"
 else

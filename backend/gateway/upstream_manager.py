@@ -93,7 +93,7 @@ class UpstreamServer:
                 "protocolVersion": "2024-11-05",
                 "capabilities": {},
                 "clientInfo": {
-                    "name": "safe-mcp-gateway",
+                    "name": "mcp-bastion-gateway",
                     "version": "1.0.0"
                 }
             }

@@ -1,5 +1,5 @@
 """
-Security exceptions for safe-mcp-sdk
+Security exceptions for mcp-bastion-sdk
 """
 
 class SAFEMCPException(Exception):

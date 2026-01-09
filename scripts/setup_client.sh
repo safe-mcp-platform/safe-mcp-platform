@@ -1,10 +1,10 @@
 #!/bin/bash
-# SAFE-MCP Platform Client Setup Script
-# Configures Claude Desktop to use SAFE-MCP Gateway
+# MCP-Bastion Platform Client Setup Script
+# Configures Claude Desktop to use MCP-Bastion Gateway
 
 set -e
 
-echo "🛡️  SAFE-MCP Platform - Client Setup"
+echo "🛡️  MCP-Bastion - Client Setup"
 echo "======================================"
 echo ""
 
@@ -24,8 +24,8 @@ echo "Detected OS: $OS"
 echo "Claude config directory: $CLAUDE_CONFIG_DIR"
 echo ""
 
-# Create safe-mcp directory
-SAFE_MCP_DIR="$HOME/.safe-mcp"
+# Create mcp-bastion directory
+MCP_BASTION_DIR="$HOME/.mcp-bastion"
 mkdir -p "$SAFE_MCP_DIR"
 echo "✓ Created $SAFE_MCP_DIR"
 
@@ -39,7 +39,7 @@ fi
 
 # Prompt for API key
 echo ""
-echo "Enter your SAFE-MCP API key:"
+echo "Enter your MCP-Bastion API key:"
 echo "(Get it from: http://localhost:5000/platform/account)"
 read -p "API Key: " API_KEY
 
@@ -73,7 +73,7 @@ fi
 cat > "$CLAUDE_CONFIG" << EOF
 {
   "mcpServers": {
-    "safe-mcp-gateway": {
+    "mcp-bastion-gateway": {
       "command": "python",
       "args": ["-m", "safe_mcp.gateway_client"],
       "env": {
@@ -95,7 +95,7 @@ echo ""
 echo "Next steps:"
 echo "1. Edit $SAFE_MCP_DIR/servers.json to configure your MCP servers"
 echo "2. Restart Claude Desktop"
-echo "3. All MCP traffic will now be protected by SAFE-MCP!"
+echo "3. All MCP traffic will now be protected by MCP-Bastion!"
 echo ""
 echo "Dashboard: http://localhost:5000"
 echo "View logs: http://localhost:5000/platform/results"

@@ -1,7 +1,7 @@
 """
 MCP Config Injector - Transparent Gateway Wrapper
 
-Automatically wraps MCP servers with safe-mcp-gateway for runtime protection.
+Automatically wraps MCP servers with mcp-bastion-gateway for runtime protection.
 Inspired by mcp-scan's gateway injection with enhancements.
 
 Key Features:
@@ -49,7 +49,7 @@ class InjectionConfig:
 
 
 class MCPConfigInjector:
-    """Handles injection and removal of safe-mcp-gateway wrapper."""
+    """Handles injection and removal of mcp-bastion-gateway wrapper."""
 
     BACKUP_SUFFIX = ".safe-mcp-backup"
     WRAPPED_MARKER = "# SAFE-MCP-WRAPPED"
@@ -133,7 +133,7 @@ class MCPConfigInjector:
 
     def wrap_server(self, server_config: dict[str, Any], injection_config: InjectionConfig) -> dict[str, Any]:
         """
-        Wrap a single server config with safe-mcp-gateway.
+        Wrap a single server config with mcp-bastion-gateway.
 
         Original config:
         {
@@ -257,7 +257,7 @@ class MCPConfigInjector:
 
     def unwrap_all_servers(self) -> tuple[int, int]:
         """
-        Remove safe-mcp-gateway wrapping from all servers.
+        Remove mcp-bastion-gateway wrapping from all servers.
 
         Returns:
             Tuple of (unwrapped_count, total_count)
@@ -312,7 +312,7 @@ def wrap_client_config(
     verbose: bool = True,
 ) -> bool:
     """
-    Wrap a client's MCP config with safe-mcp-gateway.
+    Wrap a client's MCP config with mcp-bastion-gateway.
 
     Args:
         config_path: Path to the MCP config file
@@ -341,7 +341,7 @@ def wrap_client_config(
                     f"[dim]Gateway URL: {injection_config.gateway_url}[/dim]\n"
                     f"[dim]Detection URL: {injection_config.detection_url}[/dim]\n"
                     f"[dim]Admin Dashboard: {injection_config.admin_url}[/dim]\n\n"
-                    f"[yellow]⚠️  Your MCP client will now route all traffic through safe-mcp-gateway.[/yellow]\n"
+                    f"[yellow]⚠️  Your MCP client will now route all traffic through mcp-bastion-gateway.[/yellow]\n"
                     f"[dim]To remove protection: safe-mcp unwrap[/dim]",
                     title="🛡️  Protection Enabled",
                     border_style="green",
@@ -356,7 +356,7 @@ def wrap_client_config(
 
 def unwrap_client_config(config_path: str, verbose: bool = True) -> bool:
     """
-    Remove safe-mcp-gateway wrapping from a client's config.
+    Remove mcp-bastion-gateway wrapping from a client's config.
 
     Args:
         config_path: Path to the MCP config file
@@ -379,7 +379,7 @@ def unwrap_client_config(config_path: str, verbose: bool = True) -> bool:
                 Panel(
                     f"[green]✅ Successfully unwrapped {unwrapped_count}/{total_count} servers[/green]\n\n"
                     f"[dim]Original configuration has been restored.[/dim]\n"
-                    f"[yellow]⚠️  MCP traffic is no longer protected by safe-mcp-gateway.[/yellow]",
+                    f"[yellow]⚠️  MCP traffic is no longer protected by mcp-bastion-gateway.[/yellow]",
                     title="🔓 Protection Disabled",
                     border_style="yellow",
                 )

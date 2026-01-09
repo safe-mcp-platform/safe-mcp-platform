@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ML channel full implementation (BERT-based models)
 - Behavioral analysis engine
 - Gateway proxy with transparent interception
-- CLI tool (`safe-mcp-init`) for zero-config protection
+- CLI tool (`mcp-bastion-init`) for zero-config protection
 - SDK platform integration mode
 - Redis caching for performance
 - Multi-region deployment support
@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Basic proxy functionality
   - stdio/HTTP transport support
   - Connection pooling
-- ✅ **safe-mcp-sdk** - Python SDK
+- ✅ **mcp-bastion-sdk** - Python SDK
   - `@secure()` decorator
   - Local validation mode
   - Zero-dependency operation
@@ -197,14 +197,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute to this project.
 ## Feedback
 
 Found a bug? Have a feature request? 
-- [Open an issue](https://github.com/safe-mcp-platform/safe-mcp-platform/issues)
-- [Join our Discord](https://discord.gg/safe-mcp)
-- [Email us](mailto:hello@safe-mcp-platform.io)
+- [Open an issue](https://github.com/mcp-bastion-security/mcp-bastion-security/issues)
+- [Join our Discord]( )
+- [Email us](mailto: )
 
 ---
 
-**[Unreleased]**: https://github.com/safe-mcp-platform/safe-mcp-platform/compare/v1.0.0...HEAD  
-**[1.0.0]**: https://github.com/safe-mcp-platform/safe-mcp-platform/releases/tag/v1.0.0  
-**[0.9.0]**: https://github.com/safe-mcp-platform/safe-mcp-platform/releases/tag/v0.9.0  
-**[0.5.0]**: https://github.com/safe-mcp-platform/safe-mcp-platform/releases/tag/v0.5.0
+**[Unreleased]**: https://github.com/mcp-bastion-security/mcp-bastion-security/compare/v1.0.0...HEAD  
+**[1.0.0]**: https://github.com/mcp-bastion-security/mcp-bastion-security/releases/tag/v1.0.0  
+**[0.9.0]**: https://github.com/mcp-bastion-security/mcp-bastion-security/releases/tag/v0.9.0  
+**[0.5.0]**: https://github.com/mcp-bastion-security/mcp-bastion-security/releases/tag/v0.5.0
 
