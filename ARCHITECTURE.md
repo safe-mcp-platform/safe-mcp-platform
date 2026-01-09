@@ -30,9 +30,9 @@ graph TB
         C3["Custom Clients"]
     end
     
-    GATEWAY["🚪 Gateway Service<br/>Port 8002<br/>Transparent Proxy"]
+    GATEWAY["🚪 Gateway<br/>Port 8002"]
     
-    subgraph ENGINE["🧠 Security Engine<br/>Port 8001"]
+    subgraph ENGINE["🧠 Engine Port 8001"]
         L1["Layer 1: Execution Isolation"]
         L2["Layer 2: Obfuscation Detection"]
         
@@ -50,9 +50,9 @@ graph TB
         ZK["🔐 ZK Proof System"]
     end
     
-    INTEL["📚 Threat<br/>Intelligence<br/>81+ Techniques"]
+    INTEL["📚 Threat Intel<br/>81+ Techniques"]
     
-    SERVERS["✅ Protected<br/>MCP Servers"]
+    SERVERS["✅ Protected<br/>Servers"]
     
     CLIENTS --> GATEWAY
     GATEWAY --> ENGINE
@@ -98,23 +98,23 @@ The platform implements **10 security layers** that work together to provide com
 graph TD
     START["MCP Call from Client"]
     
-    L1["Layer 1: Execution Isolation<br/>⚡ Capability-based sandboxing<br/>⚡ Least-privilege enforcement<br/>Impact: 60% attacks stopped"]
+    L1["Layer 1<br/>Execution Isolation<br/>60% attacks stopped"]
     
-    L2["Layer 2: Obfuscation Detection<br/>⚡ Multi-encoding detection<br/>⚡ Homoglyph normalization<br/>Impact: 4x bypass resistance"]
+    L2["Layer 2<br/>Obfuscation Detection<br/>4x bypass resistance"]
     
-    L3_6["Layers 3-6: 4-Channel Detection<br/>⚡ Semantic Analysis<br/>⚡ Formal Verification<br/>⚡ ML Transformer<br/>⚡ Behavioral GNN<br/>Impact: 85-90% accuracy"]
+    L3_6["Layers 3-6<br/>4-Channel Detection<br/>85-90% accuracy"]
     
-    L7["Layer 7: Information Flow Control<br/>⚡ Taint tracking<br/>⚡ Data lineage<br/>Impact: 100% exfil prevention"]
+    L7["Layer 7<br/>Flow Control<br/>100% exfil block"]
     
-    L8["Layer 8: Adaptive Policies<br/>⚡ Context-aware adjustment<br/>⚡ User behavior profiling<br/>Impact: 40% FP reduction"]
+    L8["Layer 8<br/>Adaptive Policies<br/>40% FP reduction"]
     
-    L9["Layer 9: Anomaly Detection<br/>⚡ Statistical anomaly detection<br/>⚡ Unknown attack patterns<br/>Impact: Novel attack coverage"]
+    L9["Layer 9<br/>Anomaly Detection<br/>Novel attacks"]
     
-    L10["Layer 10: Resource Monitor<br/>⚡ Resource exhaustion prevention<br/>⚡ Rate limiting<br/>Impact: DoS prevention"]
+    L10["Layer 10<br/>Resource Monitor<br/>DoS prevention"]
     
-    ZK["🔐 ZK Proof Generation<br/>⚡ Privacy-preserving verification<br/>⚡ Adversarial robustness"]
+    ZK["ZK Proof<br/>Privacy-preserving<br/>verification"]
     
-    DECISION{{"Decision:<br/>ALLOW or BLOCK"}}
+    DECISION{{"ALLOW or<br/>BLOCK"}}
     
     START --> L1
     L1 -->|"✅ Passed"| L2
@@ -131,8 +131,8 @@ graph TD
     DECISION -->|"ALLOW"| ALLOW
     DECISION -->|"BLOCK"| BLOCK
     
-    ALLOW["✅ Forward to<br/>MCP Server"]
-    BLOCK["🚫 Return Error<br/>+ ZK Proof"]
+    ALLOW["✅ Forward<br/>to Server"]
+    BLOCK["🚫 Block<br/>+ Proof"]
     
     style START fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
     style L1 fill:#ff9800,color:#fff,stroke:#e65100,stroke-width:2px
@@ -201,35 +201,35 @@ The core of the platform is **4 parallel detection channels** that analyze each 
 graph TB
     INPUT["MCP Call Input"]
     
-    subgraph CHANNEL1["Channel 1: Semantic Pattern Analyzer"]
-        S1["Extract MCP Features<br/>• Tool permissions<br/>• Resource scope<br/>• Argument semantics"]
-        S2["Analyze Semantics<br/>• Tool context<br/>• Argument relationships"]
-        S3["Pattern Matching<br/>• Attack patterns<br/>• Context-aware rules"]
-        S4["Semantic Risk: 0.0-1.0"]
+    subgraph CHANNEL1["Channel 1: Semantic"]
+        S1["Extract Features<br/>Tool + Args"]
+        S2["Analyze Context<br/>Semantics"]
+        S3["Pattern Match<br/>Attack Patterns"]
+        S4["Risk Score"]
         S1 --> S2 --> S3 --> S4
     end
     
-    subgraph CHANNEL2["Channel 2: Formal Verification Engine"]
-        F1["Convert to Logic<br/>• First-order logic<br/>• Security properties"]
-        F2["Generate Property<br/>• From threat spec<br/>• Formal constraints"]
-        F3["Automated Proof<br/>• SMT solving<br/>• Theorem proving"]
-        F4["VERIFIED or VIOLATED<br/>+ Proof/Counterexample"]
+    subgraph CHANNEL2["Channel 2: Formal"]
+        F1["Convert<br/>to Logic"]
+        F2["Generate<br/>Properties"]
+        F3["Automated<br/>Proof"]
+        F4["Verified or<br/>Violated"]
         F1 --> F2 --> F3 --> F4
     end
     
-    subgraph CHANNEL3["Channel 3: ML Transformer"]
-        M1["MCP Encoding<br/>• Protocol tokenization<br/>• Tool embeddings"]
-        M2["Multi-Head Attention<br/>• Structural attention<br/>• Tool-context attention<br/>• Argument attention"]
-        M3["Multi-Task Heads<br/>• Technique classification<br/>• Severity prediction<br/>• Mitigation suggestion"]
-        M4["ML Confidence: 0.0-1.0"]
+    subgraph CHANNEL3["Channel 3: ML"]
+        M1["MCP<br/>Encoding"]
+        M2["Multi-Head<br/>Attention"]
+        M3["Multi-Task<br/>Heads"]
+        M4["Confidence"]
         M1 --> M2 --> M3 --> M4
     end
     
-    subgraph CHANNEL4["Channel 4: Call Graph Analyzer"]
-        B1["Build Call Graph<br/>• Nodes = calls<br/>• Edges = dependencies"]
-        B2["GNN Analysis<br/>• Graph patterns<br/>• Intent inference"]
-        B3["Attack Pattern Match<br/>• Known sequences<br/>• Novel patterns"]
-        B4["Behavioral Risk: 0.0-1.0"]
+    subgraph CHANNEL4["Channel 4: GNN"]
+        B1["Build Call<br/>Graph"]
+        B2["GNN<br/>Analysis"]
+        B3["Pattern<br/>Match"]
+        B4["Risk Score"]
         B1 --> B2 --> B3 --> B4
     end
     
@@ -238,12 +238,12 @@ graph TB
     INPUT --> CHANNEL3
     INPUT --> CHANNEL4
     
-    S4 --> AGG["Risk Aggregation<br/>Weighted: Semantic 25%<br/>Formal 30% | ML 25%<br/>Behavioral 20%"]
+    S4 --> AGG["Risk Aggregation<br/>Weighted Average"]
     F4 --> AGG
     M4 --> AGG
     B4 --> AGG
     
-    AGG --> OUTPUT["Combined Risk Score<br/>+ Evidence + Confidence"]
+    AGG --> OUTPUT["Final Risk Score"]
     
     style INPUT fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
     style CHANNEL1 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
@@ -417,29 +417,29 @@ sequenceDiagram
 ```mermaid
 graph TB
     subgraph SERVICES["MCP-Bastion Platform Services"]
-        subgraph GATEWAY_SERVICE["Gateway Service :8002"]
-            GW1["MCP Protocol Handler<br/>stdio/HTTP conversion"]
-            GW2["Request Router<br/>Upstream management"]
-            GW3["Response Handler<br/>Error formatting"]
+        subgraph GATEWAY_SERVICE["Gateway :8002"]
+            GW1["Protocol<br/>Handler"]
+            GW2["Request<br/>Router"]
+            GW3["Response<br/>Handler"]
         end
         
-        subgraph DETECTION_SERVICE["Detection Service :8001"]
-            DET1["FastAPI Server<br/>32 workers"]
-            DET2["Novel Detection Engine<br/>10-layer pipeline"]
-            DET3["Session Manager<br/>State tracking"]
+        subgraph DETECTION_SERVICE["Detection :8001"]
+            DET1["FastAPI<br/>32 workers"]
+            DET2["Detection<br/>Engine"]
+            DET3["Session<br/>Manager"]
         end
         
-        subgraph ADMIN_SERVICE["Admin Service :8000"]
-            ADM1["Dashboard API<br/>Management interface"]
-            ADM2["Analytics Engine<br/>Metrics + alerts"]
-            ADM3["Configuration API<br/>Policy management"]
+        subgraph ADMIN_SERVICE["Admin :8000"]
+            ADM1["Dashboard<br/>API"]
+            ADM2["Analytics<br/>Engine"]
+            ADM3["Config<br/>API"]
         end
     end
     
     subgraph DATA["Data Layer"]
-        DB["PostgreSQL<br/>Audit logs<br/>Sessions"]
-        REDIS["Redis<br/>Session state<br/>Cache"]
-        INTEL["Threat Intelligence<br/>Techniques<br/>Mitigations"]
+        DB["PostgreSQL<br/>Logs"]
+        REDIS["Redis<br/>Cache"]
+        INTEL["Threat<br/>Intel"]
     end
     
     GATEWAY_SERVICE <--> DETECTION_SERVICE
@@ -470,35 +470,35 @@ graph TB
         CLIENT3["Custom Clients"]
     end
     
-    LB["Load Balancer<br/>HAProxy/nginx"]
+    LB["Load<br/>Balancer"]
     
-    subgraph GATEWAY_CLUSTER["Gateway Cluster (Auto-scaling)"]
-        GW1["Gateway<br/>Instance 1"]
-        GW2["Gateway<br/>Instance 2"]
-        GW3["Gateway<br/>Instance N"]
+    subgraph GATEWAY_CLUSTER["Gateway Cluster"]
+        GW1["Gateway<br/>1"]
+        GW2["Gateway<br/>2"]
+        GW3["Gateway<br/>N"]
     end
     
-    subgraph DETECTION_CLUSTER["Detection Cluster (Auto-scaling)"]
-        DET1["Detection<br/>Instance 1"]
-        DET2["Detection<br/>Instance 2"]
-        DET3["Detection<br/>Instance N"]
+    subgraph DETECTION_CLUSTER["Detection Cluster"]
+        DET1["Detection<br/>1"]
+        DET2["Detection<br/>2"]
+        DET3["Detection<br/>N"]
     end
     
     subgraph DATABASE["Data Layer"]
-        PG["PostgreSQL<br/>Primary + Replicas"]
-        REDIS_CLUSTER["Redis Cluster<br/>Session State"]
+        PG["PostgreSQL"]
+        REDIS_CLUSTER["Redis"]
     end
     
     subgraph MONITORING["Monitoring"]
-        PROM["Prometheus<br/>Metrics"]
-        GRAF["Grafana<br/>Dashboards"]
-        ALERT["AlertManager<br/>Alerts"]
+        PROM["Prometheus"]
+        GRAF["Grafana"]
+        ALERT["Alerts"]
     end
     
-    subgraph UPSTREAM["Protected MCP Servers"]
-        SERVER1["Internal<br/>Servers"]
-        SERVER2["Cloud<br/>APIs"]
-        SERVER3["3rd Party<br/>Tools"]
+    subgraph UPSTREAM["Protected Servers"]
+        SERVER1["Internal"]
+        SERVER2["Cloud"]
+        SERVER3["3rd Party"]
     end
     
     EXTERNAL --> LB
